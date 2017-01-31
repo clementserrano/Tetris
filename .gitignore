@@ -1,6 +1,5 @@
 dist
 build
 .settings
-.project
 .classpath
 build.fxbuild
