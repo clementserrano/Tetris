@@ -3,7 +3,7 @@ package application.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Environment {
+public class Tetris {
 
 	private int[][] grid;
 
@@ -17,7 +17,7 @@ public class Environment {
 
 	private String[] pieces = { "S", "Z", "L", "J", "T", "O", "I" };
 
-	public Environment() {
+	public Tetris() {
 		this.grid = new int[20][10];
 
 		int rnd = new Random().nextInt(pieces.length);
