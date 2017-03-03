@@ -15,4 +15,12 @@ public class LibrairieController {
 	public void handleLaunchTetris(){
 		main.showTetris();
 	}
+	
+	public void handleLaunchBlokus(){
+		main.showBlokus();
+	}
+	
+	public void handleLaunchPuzzle(){
+		main.showPuzzle();
+	}
 }

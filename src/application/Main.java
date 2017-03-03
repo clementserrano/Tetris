@@ -64,6 +64,36 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showBlokus() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
+			AnchorPane blokus = (AnchorPane) loader.load();
+			
+			primaryStage.setHeight(blokus.getPrefHeight());
+			primaryStage.setWidth(blokus.getPrefWidth());
+
+			rootLayout.setCenter(blokus);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showPuzzle() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Puzzle.fxml"));
+			AnchorPane puzzle = (AnchorPane) loader.load();
+			
+			primaryStage.setHeight(puzzle.getPrefHeight());
+			primaryStage.setWidth(puzzle.getPrefWidth());
+
+			rootLayout.setCenter(puzzle);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
