@@ -19,7 +19,11 @@ public class Piece {
 	}
 	
 	public ArrayList<int[]> toRight(){
-		return null;
+            ArrayList<int[]> right = new ArrayList();
+            for(int i = 0; i < 4; i++){
+                right.add(new int[]{this.getCoord().get(i)[0], this.getCoord().get(i)[1] += 1});
+            }
+		return right;
 	}
 	
 	public ArrayList<int[]> toDown(){
