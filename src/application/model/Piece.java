@@ -8,7 +8,7 @@ public class Piece {
 	/**
 	 * Cette case permettra la rotation des pièces
 	 */
-	private int[] caseCentrale;
+	private int[] pivot;
 	
 	public Piece(ArrayList<int[]> coord){
 		this.setCoord(coord);
@@ -27,6 +27,7 @@ public class Piece {
 	}
 	
 	public ArrayList<int[]> rotate(){
+		
 		return null;
 	}
 
@@ -38,8 +39,8 @@ public class Piece {
 		this.coord = coord;
 	}
 	
-	public void setCaseCentrale(int [] caseCentrale){
-		this.caseCentrale = caseCentrale;
+	public void setPivot(int [] pivot){
+		this.pivot = pivot;
 	}
 
 }
