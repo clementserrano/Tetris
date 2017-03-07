@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Tetris {
-
+	/**
+	 * Matrice de la grille
+	 */
 	private int[][] grid;
 
 	private Piece nextPiece;
@@ -18,10 +20,10 @@ public class Tetris {
 	private String[] pieces = { "S", "Z", "L", "J", "T", "O", "I" };
 
 	public Tetris() {
-		this.grid = new int[20][10];
+		this.grid = new int[20][10]; 
 
-		int rnd = new Random().nextInt(pieces.length);
-		this.nextPiece = PieceFactory.getPiece(pieces[rnd]);
+		int rnd = new Random().nextInt(pieces.length);	
+		this.nextPiece = PieceFactory.getPiece(pieces[rnd]); //Selection aléatoire de la piece
 
 		rnd = new Random().nextInt(pieces.length);
 		this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
