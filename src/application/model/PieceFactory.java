@@ -7,49 +7,64 @@ public class PieceFactory {
 	public static Piece getPiece(String name) {
 
 		ArrayList<int[]> coord = new ArrayList<int[]>();
+		Piece piece;
 		switch (name) {
 		case "S":
 			coord.add(new int[]{0,2});
 			coord.add(new int[]{0,1});
 			coord.add(new int[]{1,1});
 			coord.add(new int[]{1,0});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(1));
+			return piece;
 		case "Z":
 			coord.add(new int[]{0,0});
 			coord.add(new int[]{0,1});
 			coord.add(new int[]{1,1});
 			coord.add(new int[]{1,2});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(1));
+			return piece;
 		case "J":
 			coord.add(new int[]{0,1});
 			coord.add(new int[]{0,2});
 			coord.add(new int[]{0,3});
 			coord.add(new int[]{1,3});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(2));
+			return piece;
 		case "L":
 			coord.add(new int[]{0,0});
 			coord.add(new int[]{1,0});
 			coord.add(new int[]{2,0});
 			coord.add(new int[]{2,1});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(2));
+			return piece;
 		case "O":
 			coord.add(new int[]{0,0});
 			coord.add(new int[]{0,1});
 			coord.add(new int[]{1,0});
 			coord.add(new int[]{1,1});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(1));
+			return piece;
 		case "I":
 			coord.add(new int[]{0,0});
 			coord.add(new int[]{1,0});
 			coord.add(new int[]{2,0});
 			coord.add(new int[]{3,0});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(1));
+			return piece;
 		case "T":
 			coord.add(new int[]{0,0});
 			coord.add(new int[]{1,0});
 			coord.add(new int[]{2,0});
 			coord.add(new int[]{1,1});
-			return new Piece(coord);
+			piece = new Piece(coord);
+			piece.setCaseCentrale(coord.get(3));
+			return piece;
 		}
 		return null;
 	}

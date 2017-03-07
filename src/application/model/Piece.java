@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Piece {
 	
 	private ArrayList<int[]> coord;
+	/**
+	 * Cette case permettra la rotation des pièces
+	 */
+	private int[] caseCentrale;
 	
 	public Piece(ArrayList<int[]> coord){
 		this.setCoord(coord);
@@ -32,6 +36,10 @@ public class Piece {
 
 	public void setCoord(ArrayList<int[]> coord) {
 		this.coord = coord;
+	}
+	
+	public void setCaseCentrale(int [] caseCentrale){
+		this.caseCentrale = caseCentrale;
 	}
 
 }
