@@ -22,39 +22,39 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <ImageView fitHeight="44.0" fitWidth="53.0" layoutX="161.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/gauche-sans-fond.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="53.0" layoutX="399.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/droite-sans-fond.png" />
-         </image>
-      </ImageView>
       <Text layoutX="243.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau X">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
-      <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="58.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="165.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Images/pause.jpg" />
+            <Image url="@../../ressources/fleche-gauche_sansfond.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="193.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="476.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Images/indice.png" />
+            <Image url="@../../ressources/rollback-sansfond.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="30.0" fitWidth="84.0" layoutX="321.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="347.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Images/restart.png" />
+            <Image url="@../../ressources/restart-sansfond.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="73.0" layoutX="473.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="204.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Images/rollback.jpg" />
+            <Image url="@../../ressources/hint-sansfond.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="77.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ressources/pause-sansfond.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="393.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ressources/fleche-droite-sansfond.png" />
          </image>
       </ImageView>
    </children>
