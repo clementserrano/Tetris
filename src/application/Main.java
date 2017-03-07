@@ -2,7 +2,7 @@ package application;
 
 import java.io.IOException;
 
-import application.view.LibrairieController;
+import application.controller.LibrairieController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
