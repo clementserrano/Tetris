@@ -6,7 +6,7 @@ public class Piece {
 	
 	private ArrayList<int[]> coord;
 	/**
-	 * Cette case permettra la rotation des pièces
+	 * Cette case permettra la rotation des piï¿½ces
 	 */
 	private int[] caseCentrale;
 	
@@ -15,19 +15,27 @@ public class Piece {
 	}
 	
 	public ArrayList<int[]> toLeft(){
-		return null;
+		ArrayList<int[]> left = new ArrayList();
+            for(int i = 0; i < 4; i++){
+                left.add(new int[]{this.getCoord().get(i)[0], this.getCoord().get(i)[1] - 1});
+            }
+		return left;
 	}
 	
 	public ArrayList<int[]> toRight(){
             ArrayList<int[]> right = new ArrayList();
             for(int i = 0; i < 4; i++){
-                right.add(new int[]{this.getCoord().get(i)[0], this.getCoord().get(i)[1] += 1});
+                right.add(new int[]{this.getCoord().get(i)[0], this.getCoord().get(i)[1] + 1});
             }
 		return right;
 	}
 	
 	public ArrayList<int[]> toDown(){
-		return null;
+		ArrayList<int[]> down = new ArrayList();
+            for(int i = 0; i < 4; i++){
+                down.add(new int[]{this.getCoord().get(i)[0] + 1, this.getCoord().get(i)[1]});
+            }
+		return down;
 	}
 	
 	public ArrayList<int[]> rotate(){
