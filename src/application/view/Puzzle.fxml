@@ -29,32 +29,32 @@
       </Text>
       <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="165.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/fleche-gauche_sansfond.png" />
+            <Image url="@../ressources/fleche-gauche_sansfond.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="476.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/rollback-sansfond.png" />
+            <Image url="@../ressources/rollback-sansfond.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="347.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/restart-sansfond.png" />
+            <Image url="@../ressources/restart-sansfond.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="204.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/hint-sansfond.png" />
+            <Image url="@../ressources/hint-sansfond.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="77.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/pause-sansfond.png" />
+            <Image url="@../ressources/pause-sansfond.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="39.0" fitWidth="56.0" layoutX="393.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../ressources/fleche-droite-sansfond.png" />
+            <Image url="@../ressources/fleche-droite-sansfond.png" />
          </image>
       </ImageView>
    </children>

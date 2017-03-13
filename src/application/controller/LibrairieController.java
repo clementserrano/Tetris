@@ -16,10 +16,12 @@ public class LibrairieController {
 		main.showTetris();
 	}
 	
+	@FXML
 	public void handleLaunchBlokus(){
 		main.showBlokus();
 	}
 	
+	@FXML
 	public void handleLaunchPuzzle(){
 		main.showPuzzle();
 	}

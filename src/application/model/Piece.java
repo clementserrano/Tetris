@@ -10,6 +10,8 @@ public class Piece {
 	 */
 	private int[] pivot;
 	
+	private String color;
+	
 	public Piece(ArrayList<int[]> coord){
 		this.setCoord(coord);
 	}
@@ -53,6 +55,14 @@ public class Piece {
 	
 	public void setPivot(int [] pivot){
 		this.pivot = pivot;
+	}
+	
+	public String getColor(){
+		return color;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
 	}
 
 }

@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import application.controller.LibrairieController;
+import application.controller.TetrisController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -56,8 +57,10 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("view/Tetris.fxml"));
 			AnchorPane tetris = (AnchorPane) loader.load();
 			
-			primaryStage.setHeight(tetris.getPrefHeight());
-			primaryStage.setWidth(tetris.getPrefWidth());
+			TetrisController controller = loader.getController();
+			controller.setMain(this);
+			
+			this.setSize(tetris);
 
 			rootLayout.setCenter(tetris);
 		} catch (IOException e) {
@@ -71,8 +74,7 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
 			AnchorPane blokus = (AnchorPane) loader.load();
 			
-			primaryStage.setHeight(blokus.getPrefHeight());
-			primaryStage.setWidth(blokus.getPrefWidth());
+			this.setSize(blokus);
 
 			rootLayout.setCenter(blokus);
 		} catch (IOException e) {
@@ -86,8 +88,7 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("view/Puzzle.fxml"));
 			AnchorPane puzzle = (AnchorPane) loader.load();
 			
-			primaryStage.setHeight(puzzle.getPrefHeight());
-			primaryStage.setWidth(puzzle.getPrefWidth());
+			this.setSize(puzzle);
 
 			rootLayout.setCenter(puzzle);
 		} catch (IOException e) {
@@ -95,6 +96,11 @@ public class Main extends Application {
 		}
 	}
 
+	public void setSize(AnchorPane pane){
+		primaryStage.setHeight(pane.getPrefHeight()+50);
+		primaryStage.setWidth(pane.getPrefWidth());
+	}
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
