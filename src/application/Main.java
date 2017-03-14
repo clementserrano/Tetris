@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import application.controller.LibrairieController;
 import application.controller.TetrisController;
+import application.model.Tetris;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -57,12 +58,18 @@ public class Main extends Application {
 			loader.setLocation(Main.class.getResource("view/Tetris.fxml"));
 			AnchorPane tetris = (AnchorPane) loader.load();
 			
+			Tetris game = new Tetris();
+			
 			TetrisController controller = loader.getController();
 			controller.setMain(this);
+			controller.setGame(game);
 			
 			this.setSize(tetris);
 
 			rootLayout.setCenter(tetris);
+			
+			controller.init();
+			game.run();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

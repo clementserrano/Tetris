@@ -31,7 +31,9 @@ public class TetrisController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		assert gridView != null : "fx:id=\"gridView\" was not injected: check your FXML file 'Tetris.fxml'.";
 
-		game = new Tetris();
+	}
+
+	public void init(){
 		game.setObserver(this);
 		
 		gridView.setStyle("-fx-border-color:grey");
@@ -58,7 +60,7 @@ public class TetrisController implements Initializable {
 
 		this.update();
 	}
-
+	
 	public void update() {
 		for (int i = 0; i < game.getGrid().length; i++) {
 			for (int j = 0; j < game.getGrid()[0].length; j++) {
@@ -68,7 +70,12 @@ public class TetrisController implements Initializable {
 		}
 	}	
 	
+	
 	public void setMain(Main main){
 		this.main = main;
+	}
+	
+	public void setGame(Tetris game){
+		this.game = game;
 	}
 }
