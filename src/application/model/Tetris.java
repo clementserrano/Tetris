@@ -2,8 +2,11 @@ package application.model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import application.controller.TetrisController;
+import javafx.scene.input.KeyCode;
 
 public class Tetris {
 	/**
@@ -17,8 +20,6 @@ public class Tetris {
 
 	private ArrayList<Piece> unmoveablePiece;
 
-	private String keyPressed;
-
 	private String[] pieces = { "S", "Z", "L", "J", "T", "O", "I" };
 
 	private TetrisController observer;
@@ -31,61 +32,100 @@ public class Tetris {
 		
 		rnd = new Random().nextInt(pieces.length);
 		this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
-
-		this.unmoveablePiece = new ArrayList<Piece>();
 		
-		this.setPosition(moveablePiece);
+		for(int[] coord : moveablePiece.getCoord()){
+			grid[coord[0]][coord[1]] = moveablePiece;
+		}		
+		
+		this.unmoveablePiece = new ArrayList<Piece>();
 	}
 
 	public void run() {
 
-		while (true) {
-			/*ArrayList<int[]> newCoord = moveablePiece.getCoord();
+		Timer timer = new Timer();
+		
+		timer.schedule(new TimerTask(){
 
-			switch (keyPressed) {
-			case "UP":
+			@Override
+			public void run() {
+				ArrayList<int[]> newCoord = moveablePiece.toDown();
+
+				if (checkPosition(newCoord, moveablePiece)) {
+					changeCoord(moveablePiece,newCoord);
+				} else {
+					unmoveablePiece.add(moveablePiece);
+					moveablePiece = nextPiece;
+
+					int rnd = new Random().nextInt(pieces.length);
+					nextPiece = PieceFactory.getPiece(pieces[rnd]);
+				}
+				
+				notifyObserver();
+			}
+			
+		},1000,1000);
+	}
+	
+	public void handleKeyPressed(KeyCode keyCode){
+		ArrayList<int[]> newCoord = moveablePiece.getCoord();
+
+			switch (keyCode) {
+			case UP:
 				newCoord = moveablePiece.rotate();
 				break;
-			case "LEFT":
+			case LEFT:
 				newCoord = moveablePiece.toLeft();
 				break;
-			case "RIGHT":
+			case RIGHT:
 				newCoord = moveablePiece.toRight();
+				break;
+			case DOWN:
+				newCoord = moveablePiece.toDown();
 				break;
 			}
 
-			if (!keyPressed.equals("") && checkPosition(newCoord)) {
-				moveablePiece.setCoord(newCoord);
+		if (checkPosition(newCoord,moveablePiece)) {
+			changeCoord(moveablePiece,newCoord);
+		}
+		
+		this.notifyObserver();
+	}
+	
+	public void checkRow(){
+		boolean lignePleine = false;
+		for(int i = 0; i < grid.length;i++){
+			lignePleine = true;
+			for(int j = 0; j < grid[0].length && lignePleine; j++){
+				// verif si piece unmoveable
 			}
-
-			keyPressed = "";
-
-			newCoord = moveablePiece.toDown();
-
-			if (checkPosition(newCoord)) {
-				moveablePiece.setCoord(newCoord);
-			} else {
-				unmoveablePiece.add(moveablePiece);
-				moveablePiece = nextPiece;
-
-				int rnd = new Random().nextInt(pieces.length);
-				nextPiece = PieceFactory.getPiece(pieces[rnd]);
-			}*/
-			
-			moveablePiece.setCoord(moveablePiece.toDown());
-			
-			this.setPosition(moveablePiece);
-			
-			this.notifyObserver();
 		}
 	}
 
-	private boolean checkPosition(ArrayList<int[]> coord) {
-		return true;
+	private void changeCoord(Piece piece, ArrayList<int[]> coords){
+		for(int[] coord : piece.getCoord()){
+			grid[coord[0]][coord[1]] = null;
+		}
+		
+		for(int[] coord : coords){
+			grid[coord[0]][coord[1]] = piece;
+		}
+		
+		piece.setCoord(coords);
 	}
-
-	public void setKeyPressed(String keyPressed) {
-		this.keyPressed = keyPressed;
+	
+	private boolean checkPosition(ArrayList<int[]> newCoord, Piece piece) {
+		for(int[] coord : newCoord){
+			if(coord[0] < 0 || coord[0] >= grid.length){
+				return false;
+			}
+			if(coord[1] < 0 || coord[1] >= grid[0].length){
+				return false;
+			}
+			if(grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != piece){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void setObserver(TetrisController tetrisController) {
@@ -99,11 +139,4 @@ public class Tetris {
 	public Piece[][] getGrid(){
 		return grid;
 	}
-	
-	public void setPosition(Piece piece){
-		for(int[] coord : piece.getCoord()){
-			this.grid[coord[0]][coord[1]] = piece;
-		}
-	}
-
 }

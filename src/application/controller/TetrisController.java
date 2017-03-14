@@ -8,10 +8,12 @@ import application.Main;
 import application.model.Tetris;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -30,7 +32,6 @@ public class TetrisController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		assert gridView != null : "fx:id=\"gridView\" was not injected: check your FXML file 'Tetris.fxml'.";
-
 	}
 
 	public void init(){
@@ -64,8 +65,11 @@ public class TetrisController implements Initializable {
 	public void update() {
 		for (int i = 0; i < game.getGrid().length; i++) {
 			for (int j = 0; j < game.getGrid()[0].length; j++) {
-				if (game.getGrid()[i][j] != null)
+				if (game.getGrid()[i][j] != null){
 					labels[i][j].setStyle("-fx-border-color:grey;-fx-background-color:" + game.getGrid()[i][j].getColor()+";");
+				}else{
+					labels[i][j].setStyle("");
+				}
 			}
 		}
 	}	

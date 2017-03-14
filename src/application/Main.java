@@ -6,9 +6,11 @@ import application.controller.LibrairieController;
 import application.controller.TetrisController;
 import application.model.Tetris;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -69,6 +71,16 @@ public class Main extends Application {
 			rootLayout.setCenter(tetris);
 			
 			controller.init();
+			
+			primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
+
+				@Override
+				public void handle(KeyEvent event) {
+					game.handleKeyPressed(event.getCode());
+				}
+				
+			});
+			
 			game.run();
 		} catch (IOException e) {
 			e.printStackTrace();
