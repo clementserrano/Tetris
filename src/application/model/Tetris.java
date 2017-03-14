@@ -27,7 +27,7 @@ public class Tetris {
 		this.grid = new Piece[20][10];		
 
 		int rnd = new Random().nextInt(pieces.length);
-		this.nextPiece = PieceFactory.getPiece(pieces[rnd]); // Selection aléatoire de la pièce
+		this.nextPiece = PieceFactory.getPiece(pieces[rnd]); // Selection aleatoire de la piece
 		
 		rnd = new Random().nextInt(pieces.length);
 		this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
