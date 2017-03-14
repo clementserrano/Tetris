@@ -39,15 +39,6 @@ public class TetrisController implements Initializable {
 		
 		gridView.setStyle("-fx-border-color:grey");
 		
-		gridView.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
-
-			@Override
-			public void handle(KeyEvent key) {
-				game.setKeyPressed(key.getCode());
-			}
-			
-		});
-		
 	    double height = gridView.getPrefHeight()/game.getGrid().length;
 	    double width = gridView.getPrefWidth()/game.getGrid()[0].length;
 	    

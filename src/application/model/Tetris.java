@@ -20,8 +20,6 @@ public class Tetris {
 
 	private ArrayList<Piece> unmoveablePiece;
 
-	private KeyCode keyPressed;
-
 	private String[] pieces = { "S", "Z", "L", "J", "T", "O", "I" };
 
 	private TetrisController observer;
@@ -39,7 +37,7 @@ public class Tetris {
 			grid[coord[0]][coord[1]] = moveablePiece;
 		}		
 		
-		this.unmoveablePiece = new ArrayList<Piece>();		
+		this.unmoveablePiece = new ArrayList<Piece>();
 	}
 
 	public void run() {
@@ -50,27 +48,7 @@ public class Tetris {
 
 			@Override
 			public void run() {
-				ArrayList<int[]> newCoord = moveablePiece.getCoord();
-
-				/*switch (keyPressed) {
-				case UP:
-					newCoord = moveablePiece.rotate();
-					break;
-				case LEFT:
-					newCoord = moveablePiece.toLeft();
-					break;
-				case RIGHT:
-					newCoord = moveablePiece.toRight();
-					break;
-				}
-
-				if (!keyPressed.equals("") && checkPosition(newCoord)) {
-					changeCoord(moveablePiece,newCoord);
-				}
-
-				keyPressed = null;*/
-
-				newCoord = moveablePiece.toDown();
+				ArrayList<int[]> newCoord = moveablePiece.toDown();
 
 				if (checkPosition(newCoord, moveablePiece)) {
 					changeCoord(moveablePiece,newCoord);
@@ -86,6 +64,31 @@ public class Tetris {
 			}
 			
 		},1000,1000);
+	}
+	
+	public void handleKeyPressed(KeyCode keyCode){
+		ArrayList<int[]> newCoord = moveablePiece.getCoord();
+
+			switch (keyCode) {
+			case UP:
+				newCoord = moveablePiece.rotate();
+				break;
+			case LEFT:
+				newCoord = moveablePiece.toLeft();
+				break;
+			case RIGHT:
+				newCoord = moveablePiece.toRight();
+				break;
+			case DOWN:
+				newCoord = moveablePiece.toDown();
+				break;
+			}
+
+		if (checkPosition(newCoord,moveablePiece)) {
+			changeCoord(moveablePiece,newCoord);
+		}
+		
+		this.notifyObserver();
 	}
 
 	private void changeCoord(Piece piece, ArrayList<int[]> coords){
@@ -113,10 +116,6 @@ public class Tetris {
 			}
 		}
 		return true;
-	}
-
-	public void setKeyPressed(KeyCode keyPressed) {
-		this.keyPressed = keyPressed;
 	}
 
 	public void setObserver(TetrisController tetrisController) {
