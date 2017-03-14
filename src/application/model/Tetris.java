@@ -90,6 +90,16 @@ public class Tetris {
 		
 		this.notifyObserver();
 	}
+	
+	public void checkRow(){
+		boolean lignePleine = false;
+		for(int i = 0; i < grid.length;i++){
+			lignePleine = true;
+			for(int j = 0; j < grid[0].length && lignePleine; j++){
+				// verif si piece unmoveable
+			}
+		}
+	}
 
 	private void changeCoord(Piece piece, ArrayList<int[]> coords){
 		for(int[] coord : piece.getCoord()){
