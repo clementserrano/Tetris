@@ -72,7 +72,7 @@ public class Tetris {
 
 				newCoord = moveablePiece.toDown();
 
-				if (checkPosition(newCoord)) {
+				if (checkPosition(newCoord, moveablePiece)) {
 					changeCoord(moveablePiece,newCoord);
 				} else {
 					unmoveablePiece.add(moveablePiece);
@@ -100,7 +100,18 @@ public class Tetris {
 		piece.setCoord(coords);
 	}
 	
-	private boolean checkPosition(ArrayList<int[]> coord) {
+	private boolean checkPosition(ArrayList<int[]> newCoord, Piece piece) {
+		for(int[] coord : newCoord){
+			if(coord[0] < 0 || coord[0] >= grid.length){
+				return false;
+			}
+			if(coord[1] < 0 || coord[1] >= grid[0].length){
+				return false;
+			}
+			if(grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != piece){
+				return false;
+			}
+		}
 		return true;
 	}
 
