@@ -97,8 +97,17 @@ public class Tetris {
 			lignePleine = true;
 			for(int j = 0; j < grid[0].length && lignePleine; j++){
 				// verif si piece unmoveable
+				if(grid[i][j] == null || grid[i][j]==moveablePiece){
+					lignePleine = false;
+				}
+				if(lignePleine){
+					//SupprimerLigne
+				}
 			}
 		}
+	}
+	
+	public void supprimerLigne(int indice){
 	}
 
 	private void changeCoord(Piece piece, ArrayList<int[]> coords){
