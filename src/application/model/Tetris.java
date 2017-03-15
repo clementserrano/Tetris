@@ -61,6 +61,10 @@ public class Tetris {
 				}
 				
 				notifyObserver();
+				
+				if(isGameOver()){
+					// Partie perdue
+				}
 			}
 			
 		},1000,1000);
@@ -110,6 +114,15 @@ public class Tetris {
 	public void supprimerLigne(int indice){
 	}
 
+	public boolean isGameOver(){
+		for(int j=0; j<grid[0].length;j++){
+			if(grid[0][j] instanceof Piece && grid[0][j]!=moveablePiece){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private void changeCoord(Piece piece, ArrayList<int[]> coords){
 		for(int[] coord : piece.getCoord()){
 			grid[coord[0]][coord[1]] = null;
