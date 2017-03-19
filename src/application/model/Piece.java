@@ -41,7 +41,7 @@ public class Piece {
 	}
 	
 	public ArrayList<int[]> rotate(){
-		
+		// Cricri à toi de jouer
 		return null;
 	}
 
