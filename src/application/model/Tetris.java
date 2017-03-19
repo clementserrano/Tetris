@@ -84,9 +84,6 @@ public class Tetris {
 	 * Logique du jeu
 	 */
 	public void logic() {
-		if (score > niveau * 1000 && niveau < 10)
-			niveau++;
-
 		if (checkGameOver()) {
 			gameOver = true;
 			timeline.stop();
@@ -100,6 +97,8 @@ public class Tetris {
 				unmoveablePiece.add(moveablePiece);
 				moveablePiece = nextPiece;
 
+				checkRow();
+				
 				boolean stop = false;
 				
 				for (int[] coord : moveablePiece.getCoord()) {
@@ -120,8 +119,6 @@ public class Tetris {
 				for (int[] coord : nextPiece.getCoord()) {
 					gridProchain[coord[0]][coord[1]] = nextPiece;
 				}
-
-				checkRow();
 			}
 		}
 
@@ -169,6 +166,7 @@ public class Tetris {
 			}
 			if (lignePleine) {
 				supprimerLigne(i);
+				i++;
 			}
 		}
 	}
@@ -179,7 +177,16 @@ public class Tetris {
 				grid[i][j] = grid[i - 1][j];
 			}
 		}
+		
 		score += 100;
+		this.notifyObserver();
+		
+		if (score >= niveau * 1000 && niveau < 9){
+			niveau++;
+			this.notifyObserver();
+			timeline.stop();
+			run();
+		}
 	}
 
 	private boolean checkGameOver() {
