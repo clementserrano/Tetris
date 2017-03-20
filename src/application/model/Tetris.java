@@ -71,7 +71,7 @@ public class Tetris {
 	}
 
 	/**
-	 * Timer périodique du jeu
+	 * Timer pÃ©riodique du jeu
 	 */
 	public void run() {
 
@@ -91,22 +91,22 @@ public class Tetris {
 
 			ArrayList<int[]> newCoord = moveablePiece.toDown();
 
-			if (checkPosition(newCoord, moveablePiece)) {
-				changeCoord(moveablePiece, newCoord);
+			if (checkPosition(newCoord)) {
+				changeCoord(newCoord);
 			} else {
 				unmoveablePiece.add(moveablePiece);
 				moveablePiece = nextPiece;
 
 				checkRow();
-				
+
 				boolean stop = false;
-				
+
 				for (int[] coord : moveablePiece.getCoord()) {
-					if(grid[coord[0]][coord[1]] != null){
+					if (grid[coord[0]][coord[1]] != null) {
 						stop = true;
 					}
-					
-					if(grid[coord[0]][coord[1]] == null && !stop){
+
+					if (grid[coord[0]][coord[1]] == null && !stop) {
 						grid[coord[0]][coord[1]] = moveablePiece;
 					}
 				}
@@ -126,9 +126,9 @@ public class Tetris {
 	}
 
 	public void handleKeyPressed(KeyCode keyCode) {
-		if(!isGameOver()){
+		if (!isGameOver()) {
 			ArrayList<int[]> newCoord = moveablePiece.getCoord();
-	
+
 			switch (keyCode) {
 			case UP:
 				newCoord = moveablePiece.rotate();
@@ -142,17 +142,19 @@ public class Tetris {
 			case DOWN:
 				newCoord = moveablePiece.toDown();
 				break;
+			default:
+				return;
 			}
-	
-			if (checkPosition(newCoord, moveablePiece)) {
-				changeCoord(moveablePiece, newCoord);
+
+			if (checkPosition(newCoord)) {
+				changeCoord(newCoord);
 			}
-	
+
 			this.notifyObserver();
 		}
 	}
 
-	// Méthodes privées nécessaire à la logique du jeu
+	// MÃ©thodes privÃ©es nÃ©cessaire Ã  la logique du jeu
 
 	private void checkRow() {
 		boolean lignePleine = false;
@@ -177,11 +179,11 @@ public class Tetris {
 				grid[i][j] = grid[i - 1][j];
 			}
 		}
-		
+
 		score += 100;
 		this.notifyObserver();
-		
-		if (score >= niveau * 1000 && niveau < 9){
+
+		if (score >= niveau * 1000 && niveau < 9) {
 			niveau++;
 			this.notifyObserver();
 			timeline.stop();
@@ -198,19 +200,19 @@ public class Tetris {
 		return false;
 	}
 
-	private void changeCoord(Piece piece, ArrayList<int[]> coords) {
-		for (int[] coord : piece.getCoord()) {
+	private void changeCoord(ArrayList<int[]> coords) {
+		for (int[] coord : moveablePiece.getCoord()) {
 			grid[coord[0]][coord[1]] = null;
 		}
 
 		for (int[] coord : coords) {
-			grid[coord[0]][coord[1]] = piece;
+			grid[coord[0]][coord[1]] = moveablePiece;
 		}
 
-		piece.setCoord(coords);
+		moveablePiece.setCoord(coords);
 	}
 
-	private boolean checkPosition(ArrayList<int[]> newCoord, Piece piece) {
+	private boolean checkPosition(ArrayList<int[]> newCoord) {
 		for (int[] coord : newCoord) {
 			if (coord[0] < 0 || coord[0] >= grid.length) {
 				return false;
@@ -218,7 +220,7 @@ public class Tetris {
 			if (coord[1] < 0 || coord[1] >= grid[0].length) {
 				return false;
 			}
-			if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != piece) {
+			if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != moveablePiece) {
 				return false;
 			}
 		}

@@ -77,7 +77,7 @@ public class TetrisController implements Initializable {
 			}
 		}
 
-		// Configuration de l'affichage de la prochaine pièce
+		// Configuration de l'affichage de la prochaine piÃ¨ce
 
 		gridProchain.setStyle("-fx-border-color:grey");
 

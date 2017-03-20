@@ -6,7 +6,7 @@ public class Piece {
 	
 	private ArrayList<int[]> coord;
 	/**
-	 * Cette case permettra la rotation des pi�ces
+	 * Cette case permettra la rotation des pièces
 	 */
 	private int[] pivot;
 	
