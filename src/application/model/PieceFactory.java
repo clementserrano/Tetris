@@ -16,7 +16,7 @@ public class PieceFactory {
 			coord.add(new int[]{1,0});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(1));
-			piece.setColor("red");
+			piece.setColor("#1FD925");
 			return piece;
 		case "Z":
 			coord.add(new int[]{0,0});
@@ -25,7 +25,7 @@ public class PieceFactory {
 			coord.add(new int[]{1,2});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(1));
-			piece.setColor("blue");
+			piece.setColor("#FE3301");
 			return piece;
 		case "J":
 			coord.add(new int[]{0,1});
@@ -34,7 +34,7 @@ public class PieceFactory {
 			coord.add(new int[]{1,3});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(2));
-			piece.setColor("orange");
+			piece.setColor("#011AFE");
 			return piece;
 		case "L":
 			coord.add(new int[]{0,0});
@@ -43,7 +43,7 @@ public class PieceFactory {
 			coord.add(new int[]{2,1});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(2));
-			piece.setColor("yellow");
+			piece.setColor("#FEAA01");
 			return piece;
 		case "O":
 			coord.add(new int[]{0,0});
@@ -52,7 +52,7 @@ public class PieceFactory {
 			coord.add(new int[]{1,1});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(1));
-			piece.setColor("green");
+			piece.setColor("#FEF601");
 			return piece;
 		case "I":
 			coord.add(new int[]{0,0});
@@ -61,7 +61,7 @@ public class PieceFactory {
 			coord.add(new int[]{3,0});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(1));
-			piece.setColor("purple");
+			piece.setColor("#01FEED");
 			return piece;
 		case "T":
 			coord.add(new int[]{0,0});
@@ -70,7 +70,7 @@ public class PieceFactory {
 			coord.add(new int[]{1,1});
 			piece = new Piece(coord);
 			piece.setPivot(coord.get(3));
-			piece.setColor("cyan");
+			piece.setColor("#DC01FE");
 			return piece;
 		}
 		return null;

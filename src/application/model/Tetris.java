@@ -41,7 +41,7 @@ public class Tetris {
 	private Timeline timeline;
 
 	public Tetris() {
-		this.grid = new Piece[20][10];
+		this.grid = new Piece[30][15];
 
 		this.gridProchain = new Piece[4][4];
 

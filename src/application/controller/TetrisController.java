@@ -79,7 +79,6 @@ public class TetrisController implements Initializable {
 
 		// Configuration de l'affichage de la prochaine pièce
 
-		gridProchain.setStyle("-fx-border-color:grey");
 
 		height = gridProchain.getPrefHeight() / game.getGridProchain().length;
 		width = gridProchain.getPrefWidth() / game.getGridProchain()[0].length;
