@@ -1,31 +1,47 @@
 package application.controller;
 
-import application.Main;
-import application.model.Blokus;
-import javafx.scene.control.Button;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.model.Blokus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Nejko
- */
-public class BlokusController {
+
+public class BlokusController extends GameController implements Initializable{
 
     @FXML private Button passBtn;
-    @FXML private Button ruleBtn;
-    @FXML private Button quitBtn;
-    private Blokus game;
-    private Main main;
-
     
-    public void setMain(Main main){ this.main = main; }
-    public void setGame(Blokus game){ this.game = game;}
+    @FXML private Button ruleBtn;
+    
+    @FXML private Button quitBtn;
+    
+    private Blokus game;
+    
+    @Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
     
     @FXML
     private void passBtnAction(){
@@ -50,12 +66,5 @@ public class BlokusController {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
     stage.close();
     }
-    
-    
-    
-    
-    
-    
-    
     
 }

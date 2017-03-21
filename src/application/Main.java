@@ -78,9 +78,9 @@ public class Main extends Application {
 			controller.setMain(this);
 			controller.setGame(game);
 
-			this.setSize(tetris);
-
 			rootLayout.setCenter(tetris);
+			
+			this.setSize(tetris);
 
 			controller.init();
 
@@ -130,6 +130,7 @@ public class Main extends Application {
 	public void setSize(AnchorPane pane) {
 		primaryStage.setHeight(pane.getPrefHeight() + 50);
 		primaryStage.setWidth(pane.getPrefWidth());
+		primaryStage.centerOnScreen();
 	}
 
 	public Stage getPrimaryStage() {

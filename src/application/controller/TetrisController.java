@@ -1,32 +1,22 @@
 package application.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Main;
 import application.model.Tetris;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 
-public class TetrisController implements Initializable {
-
-	@FXML
-	private GridPane gridView;
+public class TetrisController extends GameController implements Initializable {
 
 	@FXML
-	private GridPane gridProchain;
+	private GridPane gridViewProchain;
 
 	@FXML
 	private Label lbScore;
@@ -40,12 +30,10 @@ public class TetrisController implements Initializable {
 
 	private Tetris game;
 
-	private Main main;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		assert gridView != null : "fx:id=\"gridView\" was not injected: check your FXML file 'Tetris.fxml'.";
-		assert gridProchain != null : "fx:id=\"gridProchain\" was not injected: check your FXML file 'Tetris.fxml'.";
+		assert gridViewProchain != null : "fx:id=\"gridViewProchain\" was not injected: check your FXML file 'Tetris.fxml'.";
 		assert lbScore != null : "fx:id=\"lbScore\" was not injected: check your FXML file 'Tetris.fxml'.";
 		assert lbNiveau != null : "fx:id=\"lbNiveau\" was not injected: check your FXML file 'Tetris.fxml'.";
 	}
@@ -80,8 +68,8 @@ public class TetrisController implements Initializable {
 		// Configuration de l'affichage de la prochaine pièce
 
 
-		height = gridProchain.getPrefHeight() / game.getGridProchain().length;
-		width = gridProchain.getPrefWidth() / game.getGridProchain()[0].length;
+		height = gridViewProchain.getPrefHeight() / game.getGridProchain().length;
+		width = gridViewProchain.getPrefWidth() / game.getGridProchain()[0].length;
 
 		labelsProchain = new Label[game.getGridProchain().length][game.getGridProchain()[0].length];
 
@@ -92,9 +80,9 @@ public class TetrisController implements Initializable {
 				label.setPrefWidth(width);
 				label.setAlignment(Pos.CENTER);
 
-				gridProchain.setRowIndex(label, i);
-				gridProchain.setColumnIndex(label, j);
-				gridProchain.getChildren().add(label);
+				gridViewProchain.setRowIndex(label, i);
+				gridViewProchain.setColumnIndex(label, j);
+				gridViewProchain.getChildren().add(label);
 
 				labelsProchain[i][j] = label;
 			}

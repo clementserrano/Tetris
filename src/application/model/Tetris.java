@@ -2,23 +2,15 @@ package application.model;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import application.controller.TetrisController;
+import application.controller.GameController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
-public class Tetris {
-
-	/**
-	 * Matrice de la grille
-	 */
-	private Piece[][] grid;
+public class Tetris extends Game{
 
 	private Piece[][] gridProchain;
 
@@ -35,10 +27,6 @@ public class Tetris {
 	private int niveau;
 
 	private boolean gameOver;
-
-	private TetrisController observer;
-
-	private Timeline timeline;
 
 	public Tetris() {
 		this.grid = new Piece[30][15];
@@ -58,6 +46,7 @@ public class Tetris {
 		this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
 
 		for (int[] coord : moveablePiece.getCoord()) {
+			coord[1]+=grid[0].length/2;
 			grid[coord[0]][coord[1]] = moveablePiece;
 		}
 
@@ -73,6 +62,7 @@ public class Tetris {
 	/**
 	 * Timer périodique du jeu
 	 */
+	@Override
 	public void run() {
 
 		timeline = new Timeline(new KeyFrame(Duration.millis(1000 - 100 * niveau), ae -> logic()));
@@ -83,6 +73,7 @@ public class Tetris {
 	/**
 	 * Logique du jeu
 	 */
+	@Override
 	public void logic() {
 		if (checkGameOver()) {
 			gameOver = true;
@@ -102,6 +93,7 @@ public class Tetris {
 				boolean stop = false;
 
 				for (int[] coord : moveablePiece.getCoord()) {
+					coord[1]+=grid[0].length/2;
 					if (grid[coord[0]][coord[1]] != null) {
 						stop = true;
 					}
@@ -125,6 +117,7 @@ public class Tetris {
 		notifyObserver();
 	}
 
+	@Override
 	public void handleKeyPressed(KeyCode keyCode) {
 		if (!isGameOver()) {
 			ArrayList<int[]> newCoord = moveablePiece.getCoord();
@@ -226,20 +219,9 @@ public class Tetris {
 		}
 		return true;
 	}
-
-	public void setObserver(TetrisController tetrisController) {
-		this.observer = tetrisController;
-	}
-
-	private void notifyObserver() {
-		observer.update();
-	}
+	
 
 	// GETTER
-
-	public Piece[][] getGrid() {
-		return grid;
-	}
 
 	public Piece[][] getGridProchain() {
 		return gridProchain;
