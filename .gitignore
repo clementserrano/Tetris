@@ -3,3 +3,7 @@
 .project
 build.fxbuild
 /.settings/
+/out/
+/nbproject/
+/.idea/
+*.iml
