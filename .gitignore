@@ -7,3 +7,4 @@ build.fxbuild
 /nbproject/
 /.idea/
 *.iml
+/src/*/.gitignore

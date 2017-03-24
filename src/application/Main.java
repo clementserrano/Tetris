@@ -89,7 +89,7 @@ public class Main extends Application {
             controller.setMain(this);
 
             // Affiche la librairie
-            rootLayout.setCenter(menu);
+            rootLayout.setTop(menu);
 
         } catch (Exception e) {
             e.printStackTrace();
