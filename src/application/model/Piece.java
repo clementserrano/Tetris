@@ -2,122 +2,197 @@ package application.model;
 
 import java.util.ArrayList;
 
+/**
+ * Piece contenant les coordonées d'une pièce et les méthode de transformations de ses coordonnées.
+ * Contient également la couleur de la pièce, utilisée ensuite par la vue.
+ */
 public class Piece {
-	
-	private ArrayList<int[]> coord;
-	/**
-	 * Cette case permettra la rotation des pièces
-	 */
-	private int[] pivot;
-	
-	private String color;
-	
-	public Piece(ArrayList<int[]> coord){
-		this.coord = coord;
-	}
-	
-	public ArrayList<int[]> toLeft(){
-		ArrayList<int[]> left = new ArrayList<int[]>();
 
-		int[] newPivot = pivot;
-		
-		for(int[] cord : coord){
-			int[] newCoord = new int[]{cord[0],cord[1]-1};
-            
-			left.add(newCoord);
-            
-            if(pivot == cord){
-				newPivot = newCoord;
-			}
-        }
-		
-		left.add(newPivot);
-		
-		return left;
-	}
-	
-	public ArrayList<int[]> toRight(){
-		ArrayList<int[]> right = new ArrayList<int[]>();
+    /**
+     * Liste des coordonnées de la pièce
+     */
+    private ArrayList<int[]> coord;
 
-		int[] newPivot = pivot;
-		
-		for(int[] cord : coord){
-			int[] newCoord = new int[]{cord[0],cord[1]+1};
-            
-			right.add(newCoord);
-            
-            if(pivot == cord){
-				newPivot = newCoord;
-			}
+    /**
+     * Cette case permettra la rotation des pièces
+     */
+    private int[] pivot;
+
+    /**
+     * Couleur de la pièce pour la vue
+     */
+    private String color;
+
+    /**
+     * Construit une pièce avec les coordonnées fournies
+     *
+     * @param coord
+     */
+    public Piece(ArrayList<int[]> coord) {
+        this.coord = coord;
+    }
+
+    /**
+     * Retourne une liste des coordonnées dans le cas où la pièce est décalée vers la gauche.
+     * Le pivot est présent une 2ème fois à la fin de la liste.
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> toLeft() {
+        ArrayList<int[]> left = new ArrayList<int[]>();
+
+        int[] newPivot = pivot;
+
+        for (int[] cord : coord) {
+            int[] newCoord = new int[]{cord[0], cord[1] - 1};
+
+            left.add(newCoord);
+
+            if (pivot == cord) {
+                newPivot = newCoord;
+            }
         }
-		
-		right.add(newPivot);
-		
-		return right;
-	}
-	
-	public ArrayList<int[]> toDown(){
-		ArrayList<int[]> down = new ArrayList<int[]>();
-		int[] newPivot = pivot;
-		
-		for(int[] cord : coord){
-			int[] newCoord = new int[]{cord[0]+1,cord[1]};
-            
+
+        // Rajoute le pivot à la fin
+        left.add(newPivot);
+
+        return left;
+    }
+
+    /**
+     * Retourne une liste des coordonnées dans le cas où la pièce est décalée vers la droite.
+     * Le pivot est présent une 2ème fois à la fin de la liste.
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> toRight() {
+        ArrayList<int[]> right = new ArrayList<int[]>();
+
+        int[] newPivot = pivot;
+
+        for (int[] cord : coord) {
+            int[] newCoord = new int[]{cord[0], cord[1] + 1};
+
+            right.add(newCoord);
+
+            if (pivot == cord) {
+                newPivot = newCoord;
+            }
+        }
+
+        // Rajoute le pivot à la fin
+        right.add(newPivot);
+
+        return right;
+    }
+
+    /**
+     * Retourne une liste des coordonnées dans le cas où la pièce est décalée vers le bas.
+     * Le pivot est présent une 2ème fois à la fin de la liste.
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> toDown() {
+        ArrayList<int[]> down = new ArrayList<int[]>();
+        int[] newPivot = pivot;
+
+        for (int[] cord : coord) {
+            int[] newCoord = new int[]{cord[0] + 1, cord[1]};
+
             down.add(newCoord);
-            
-            if(pivot == cord){
-				newPivot = newCoord;
-			}
+
+            if (pivot == cord) {
+                newPivot = newCoord;
+            }
         }
-		
-		down.add(newPivot);
-		
-		return down;
-	}
-	
-	public ArrayList<int[]> rotate(){
-		ArrayList<int[]> rotate = new ArrayList<int[]>();
-		int[] newPivot = pivot;
-		
-		for(int[] cord : coord){
-			
-			int[] vector = new int[]{cord[0]-pivot[0],cord[1]-pivot[1]};
-			
-			int[] vectorRotate = new int[]{-vector[1],vector[0]};
-			
-			int[] newCoord = new int[]{pivot[0]+vectorRotate[0],pivot[1]+vectorRotate[1]};
-			
-			rotate.add(newCoord);
-			
-			if(pivot == cord){
-				newPivot = newCoord;
-			}
-		}
-		
-		rotate.add(newPivot);
-		
-		return rotate;
-	}
 
-	public ArrayList<int[]> getCoord() {
-		return coord;
-	}
+        // Rajoute le pivot à la fin
+        down.add(newPivot);
 
-	public void setCoord(ArrayList<int[]> coord) {
-		this.coord = coord;
-		pivot = coord.remove(coord.size()-1);
-	}
-	
-	public void setPivot(int [] pivot){
-		this.pivot = pivot;
-	}
-	
-	public String getColor(){
-		return color;
-	}
-	
-	public void setColor(String color){
-		this.color = color;
-	}
+        return down;
+    }
+
+    /**
+     * Retourne une liste des coordonnées dans le cas où la pièce est pivotée.
+     * Le pivot est présent une 2ème fois à la fin de la liste.
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> rotate() {
+        ArrayList<int[]> rotate = new ArrayList<int[]>();
+        int[] newPivot = pivot;
+
+        for (int[] cord : coord) {
+
+            // Construit le vecteur corresdant à la différence entre les coordonnées de la pièce
+            // et les coordonnées du pivot (xPiece-xPivot yPiece-yPivot) = (xV1 yV1)
+            int[] vector = new int[]{cord[0] - pivot[0], cord[1] - pivot[1]};
+
+            // Pivote ce vecteur à 90° vers la droite (-yV1 xV1) = (xV2 yV2)
+            int[] vectorRotate = new int[]{-vector[1], vector[0]};
+
+            // Construit les nouvelles coordonnées du point pivoté en effectuer l'addition des coordonnées
+            // du pivot avec le vecteur précédemment calculé (xPivot+xv2 yPivot+yPivot) = (xPiece2 yPiece2)
+            int[] newCoord = new int[]{pivot[0] + vectorRotate[0], pivot[1] + vectorRotate[1]};
+
+            rotate.add(newCoord);
+
+            if (pivot == cord) {
+                newPivot = newCoord;
+            }
+        }
+
+        // Rajoute le pivot à la fin
+        rotate.add(newPivot);
+
+        return rotate;
+    }
+
+    /**
+     * Retourne la liste des coordonnées de la pièce
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> getCoord() {
+        return coord;
+    }
+
+    /**
+     * Met à jour les coordonées de la pièce avec les coordonées entrées en paramètre.
+     * Les dernières coordonnées de la liste entré correspondent aux coordonnées du nouveau pivot.
+     *
+     * @param coord une ArrayList de tableaux d'entier
+     */
+    public void setCoord(ArrayList<int[]> coord) {
+        this.coord = coord;
+        pivot = coord.remove(coord.size() - 1);
+    }
+
+    /**
+     * Modifie le pivot
+     *
+     * @param pivot un tableau d'entiers
+     */
+    public void setPivot(int[] pivot) {
+        this.pivot = pivot;
+    }
+
+    /**
+     * Retourne la couleur de la pièce, nécessaire à la vue
+     *
+     * @return un String
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * Modifie la couleur
+     *
+     * @param color
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
 
 }

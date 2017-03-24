@@ -1,7 +1,5 @@
 package application;
 
-import java.io.IOException;
-
 import application.controller.LibrairieController;
 import application.controller.TetrisController;
 import application.model.Tetris;
@@ -9,135 +7,211 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.io.IOException;
+
+/**
+ * Classe lançant l'application
+ * Initialise les modèles et contrôleurs et charge les vues
+ */
 public class Main extends Application {
 
-	private Stage primaryStage;
-	private BorderPane rootLayout;
+    /**
+     * Fenêtre de l'application
+     */
+    private Stage primaryStage;
 
-	@Override
-	public void start(Stage primaryStage) {
-		try {
+    /**
+     * Pane principale de l'application, lors d'un changement de jeu,
+     * seul le Pane au centre du rootLayout sera changé
+     */
+    private BorderPane rootLayout;
 
-			this.primaryStage = primaryStage;
-			this.primaryStage.setTitle("Librairie");
+    @Override
+    public void start(Stage primaryStage) {
+        try {
 
-			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent t) {
-					Platform.exit();
-					System.exit(0);
-				}
-			});
+            this.primaryStage = primaryStage;
+            this.primaryStage.setTitle("Librairie");
 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
 
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+            // Permet l'arrêt du programme lorsque la fenêtre est quitée
+            this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
 
-			showLirairie();
+            // Chargement du rootLayout
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            // Affichage du rootLayout
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
-	public void showLirairie() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/Librairie.fxml"));
-			AnchorPane librairie = (AnchorPane) loader.load();
+            // Affiche le menu de librairie
+            showLirairie();
 
-			LibrairieController controller = loader.getController();
-			controller.setMain(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			rootLayout.setCenter(librairie);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Charge et affiche le menu de librairie proposant à l'utilisateur de choisir le jeu à lancer
+     */
+    public void showLirairie() {
+        try {
 
-	public void showTetris() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/Tetris.fxml"));
-			AnchorPane tetris = (AnchorPane) loader.load();
+            // Charge la librairie
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Librairie.fxml"));
+            AnchorPane librairie = (AnchorPane) loader.load();
 
-			Tetris game = new Tetris();
+            // Récupère le contrôleur et lui passe la référence du Main
+            LibrairieController controller = loader.getController();
+            controller.setMain(this);
 
-			TetrisController controller = loader.getController();
-			controller.setMain(this);
-			controller.setGame(game);
+            // Affiche la librairie
+            rootLayout.setCenter(librairie);
 
-			rootLayout.setCenter(tetris);
-			
-			this.setSize(tetris);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			controller.init();
+    /**
+     * Charge, affiche et lance le jeu Tetris
+     */
+    public void showTetris() {
+        try {
 
-			primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            // Charge la vue Tetris
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Tetris.fxml"));
+            AnchorPane tetris = (AnchorPane) loader.load();
 
-				@Override
-				public void handle(KeyEvent event) {
-					game.handleKeyPressed(event.getCode());
-				}
+            // Créer le jeu Tetris
+            Tetris game = new Tetris();
 
-			});
+            // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Tetris
+            TetrisController controller = loader.getController();
+            controller.setMain(this);
+            controller.setGame(game);
 
-			game.run();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            // Affiche le Tetris
+            rootLayout.setCenter(tetris);
 
-	public void showBlokus() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
-			AnchorPane blokus = (AnchorPane) loader.load();
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Tetris
+            this.setSize(tetris);
 
-			this.setSize(blokus);
+            // Initialise les champs de la vue en fonction du jeu Tetris
+            controller.init();
 
-			rootLayout.setCenter(blokus);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            // Permet la gestion des touches pressées du clavier
+            primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
-	public void showPuzzle() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/Puzzle.fxml"));
-			AnchorPane puzzle = (AnchorPane) loader.load();
+                // Le jeu Tetris reçoit le code de la touche pressée et gère son comportement
+                @Override
+                public void handle(KeyEvent event) {
+                    game.handleKeyPressed(event.getCode());
+                }
 
-			this.setSize(puzzle);
+            });
 
-			rootLayout.setCenter(puzzle);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            // Lance le jeu Tetris
+            game.run();
 
-	public void setSize(AnchorPane pane) {
-		primaryStage.setHeight(pane.getPrefHeight() + 50);
-		primaryStage.setWidth(pane.getPrefWidth());
-		primaryStage.centerOnScreen();
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public Stage getPrimaryStage() {
-		return primaryStage;
-	}
+    /**
+     * Charge, affiche et lance le jeu Blokus
+     */
+    public void showBlokus() {
+        try {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+            // Charge la vue Blokus
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
+            AnchorPane blokus = (AnchorPane) loader.load();
+
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Blokus
+            this.setSize(blokus);
+
+            // Affiche le Blokus
+            rootLayout.setCenter(blokus);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Charge, affiche et lance le jeu Puzzle
+     */
+    public void showPuzzle() {
+        try {
+
+            // Charge la vue Puzzle
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Puzzle.fxml"));
+            AnchorPane puzzle = (AnchorPane) loader.load();
+
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Puzzle
+            this.setSize(puzzle);
+
+            // Affiche le Blokus
+            rootLayout.setCenter(puzzle);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Redimensionne la fenêtre afin de correspondre à la taille du Pane entré en paramètre
+     *
+     * @param pane
+     */
+    public void setSize(AnchorPane pane) {
+
+        // Redimensionne la fenêtre en rajoutant de la hauteur correspondant à la barre de titre
+        primaryStage.setHeight(pane.getPrefHeight() + 50);
+        primaryStage.setWidth(pane.getPrefWidth());
+
+        // Repositionne la fenêtre au centre de l'écran
+        primaryStage.centerOnScreen();
+    }
+
+    /**
+     * Retourne la fenêtre
+     *
+     * @return un Stage
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    /**
+     * Appelle simplement la fonction JavaFX launch() lançant l'application JavaFX
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

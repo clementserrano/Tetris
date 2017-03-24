@@ -10,232 +10,312 @@ import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
-public class Tetris extends Game{
+/**
+ * Modèle du jeu Tetris
+ */
+public class Tetris extends Game {
 
-	private Piece[][] gridProchain;
+    /**
+     * Grille contenant la prochaine Piece à afficher
+     */
+    private Piece[][] gridProchain;
 
-	private Piece nextPiece;
+    /**
+     * Prochaine Piece
+     */
+    private Piece nextPiece;
 
-	private Piece moveablePiece;
+    /**
+     * Piece en cours de mouvement
+     */
+    private Piece moveablePiece;
 
-	private ArrayList<Piece> unmoveablePiece;
+    /**
+     * Tableau des noms des Piece du Tetris
+     */
+    private String[] pieces = {"S", "Z", "L", "J", "T", "O", "I"};
 
-	private String[] pieces = { "S", "Z", "L", "J", "T", "O", "I" };
+    /**
+     * Score du joueur
+     */
+    private int score;
 
-	private int score;
+    /**
+     * Niveau courant du jeu
+     */
+    private int niveau;
 
-	private int niveau;
+    /**
+     * Détermine si le jeu est perdu ou non
+     */
+    private boolean gameOver;
 
-	private boolean gameOver;
+    /**
+     * Construit le Tetris en initialisant ses attributs et en plaçant la première pièce
+     */
+    public Tetris() {
+        this.grid = new Piece[30][15];
 
-	public Tetris() {
-		this.grid = new Piece[30][15];
+        this.gridProchain = new Piece[4][4];
 
-		this.gridProchain = new Piece[4][4];
 
-		int rnd = new Random().nextInt(pieces.length);
-		this.nextPiece = PieceFactory.getPiece(pieces[rnd]); // Selection
-																// aleatoire de
-																// la piece
+        // Sélection aléatoire de la prochaine Piece
+        int rnd = new Random().nextInt(pieces.length);
+        this.nextPiece = PieceFactory.getPiece(pieces[rnd]);
 
-		for (int[] coord : nextPiece.getCoord()) {
-			gridProchain[coord[0]][coord[1]] = nextPiece;
-		}
+        // Place la prochaine Piece dans sa grille
+        for (int[] coord : nextPiece.getCoord()) {
+            gridProchain[coord[0]][coord[1]] = nextPiece;
+        }
 
-		rnd = new Random().nextInt(pieces.length);
-		this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
 
-		for (int[] coord : moveablePiece.getCoord()) {
-			coord[1]+=grid[0].length/2;
-			grid[coord[0]][coord[1]] = moveablePiece;
-		}
+        // Sélection aléatoire de la Piece en mouvement
+        rnd = new Random().nextInt(pieces.length);
+        this.moveablePiece = PieceFactory.getPiece(pieces[rnd]);
 
-		this.unmoveablePiece = new ArrayList<Piece>();
+        // Place la Piece en mouvement sur la grille
+        for (int[] coord : moveablePiece.getCoord()) {
+            coord[1] += grid[0].length / 2;
+            grid[coord[0]][coord[1]] = moveablePiece;
+        }
 
-		this.score = 0;
+        this.score = 0;
 
-		this.niveau = 1;
+        this.niveau = 1;
 
-		this.gameOver = false;
-	}
+        this.gameOver = false;
+    }
 
-	/**
-	 * Timer périodique du jeu
-	 */
-	@Override
-	public void run() {
+    @Override
+    public void run() {
+        // Met en place le timer du jeu en diminuant la fréquence d'intervalle de 100 ms/niveau (départ 1000 ms)
+        timeline = new Timeline(new KeyFrame(Duration.millis(1000 - 100 * niveau), ae -> logic()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
-		timeline = new Timeline(new KeyFrame(Duration.millis(1000 - 100 * niveau), ae -> logic()));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
-	}
+    @Override
+    public void logic() {
+        // Si le jeu est perdu, on arrête le timer
+        if (checkGameOver()) {
+            gameOver = true;
+            timeline.stop();
+        } else {
 
-	/**
-	 * Logique du jeu
-	 */
-	@Override
-	public void logic() {
-		if (checkGameOver()) {
-			gameOver = true;
-			timeline.stop();
-		} else {
+            // Sinon on descend la Piece
+            ArrayList<int[]> newCoord = moveablePiece.toDown();
 
-			ArrayList<int[]> newCoord = moveablePiece.toDown();
+            // Si la Piece descend sans collision, on valide le changement de coordonnées
+            if (checkPosition(newCoord)) {
+                changeCoord(newCoord);
+            } else {
 
-			if (checkPosition(newCoord)) {
-				changeCoord(newCoord);
-			} else {
-				unmoveablePiece.add(moveablePiece);
-				moveablePiece = nextPiece;
+                // Sinon, on stoppe la Piece et on passe à la suivante
+                moveablePiece = nextPiece;
 
-				checkRow();
+                checkRow();
 
-				boolean stop = false;
+                boolean stop = false;
 
-				for (int[] coord : moveablePiece.getCoord()) {
-					coord[1]+=grid[0].length/2;
-					if (grid[coord[0]][coord[1]] != null) {
-						stop = true;
-					}
+                for (int[] coord : moveablePiece.getCoord()) {
+                    coord[1] += grid[0].length / 2;
+                    if (grid[coord[0]][coord[1]] != null) {
+                        stop = true;
+                    }
 
-					if (grid[coord[0]][coord[1]] == null && !stop) {
-						grid[coord[0]][coord[1]] = moveablePiece;
-					}
-				}
+                    if (grid[coord[0]][coord[1]] == null && !stop) {
+                        grid[coord[0]][coord[1]] = moveablePiece;
+                    }
+                }
 
-				int rnd = new Random().nextInt(pieces.length);
-				nextPiece = PieceFactory.getPiece(pieces[rnd]);
+                // On sélectionne une nouvelle prochaine Piece
+                int rnd = new Random().nextInt(pieces.length);
+                nextPiece = PieceFactory.getPiece(pieces[rnd]);
 
-				gridProchain = new Piece[4][4];
+                gridProchain = new Piece[4][4];
 
-				for (int[] coord : nextPiece.getCoord()) {
-					gridProchain[coord[0]][coord[1]] = nextPiece;
-				}
-			}
-		}
+                for (int[] coord : nextPiece.getCoord()) {
+                    gridProchain[coord[0]][coord[1]] = nextPiece;
+                }
+            }
+        }
 
-		notifyObserver();
-	}
+        // On prévient le contrôleur du changement à chaque itération du jeu
+        notifyObserver();
+    }
 
-	@Override
-	public void handleKeyPressed(KeyCode keyCode) {
-		if (!isGameOver()) {
-			ArrayList<int[]> newCoord = moveablePiece.getCoord();
+    @Override
+    public void handleKeyPressed(KeyCode keyCode) {
 
-			switch (keyCode) {
-			case UP:
-				newCoord = moveablePiece.rotate();
-				break;
-			case LEFT:
-				newCoord = moveablePiece.toLeft();
-				break;
-			case RIGHT:
-				newCoord = moveablePiece.toRight();
-				break;
-			case DOWN:
-				newCoord = moveablePiece.toDown();
-				break;
-			default:
-				return;
-			}
+        // Si le jeu n'est pas perdu, on autorise les actions du joueur
+        if (!isGameOver()) {
+            ArrayList<int[]> newCoord = moveablePiece.getCoord();
 
-			if (checkPosition(newCoord)) {
-				changeCoord(newCoord);
-			}
+            switch (keyCode) {
+                case UP:
+                    newCoord = moveablePiece.rotate();
+                    break;
+                case LEFT:
+                    newCoord = moveablePiece.toLeft();
+                    break;
+                case RIGHT:
+                    newCoord = moveablePiece.toRight();
+                    break;
+                case DOWN:
+                    newCoord = moveablePiece.toDown();
+                    break;
+                default:
+                    return;
+            }
 
-			this.notifyObserver();
-		}
-	}
+            if (checkPosition(newCoord)) {
+                changeCoord(newCoord);
+            }
 
-	// Méthodes privées nécessaire à la logique du jeu
+            // On prévient le contrôleur du changement à chaque action du joueur
+            this.notifyObserver();
+        }
+    }
 
-	private void checkRow() {
-		boolean lignePleine = false;
-		for (int i = grid.length - 1; i >= 0; i--) {
-			lignePleine = true;
-			for (int j = 0; j < grid[0].length && lignePleine; j++) {
-				// verif si piece unmoveable
-				if (grid[i][j] == null || grid[i][j] == moveablePiece) {
-					lignePleine = false;
-				}
-			}
-			if (lignePleine) {
-				supprimerLigne(i);
-				i++;
-			}
-		}
-	}
+    // Méthodes privées nécessaire à la logique du jeu
 
-	private void supprimerLigne(int indice) {
-		for (int i = indice; i >= 0; i--) {
-			for (int j = 0; j < grid[0].length && i > 0; j++) {
-				grid[i][j] = grid[i - 1][j];
-			}
-		}
+    /**
+     * Vérifie si une ligne est pleine, si elle l'est la supprime
+     */
+    private void checkRow() {
+        boolean lignePleine = false;
+        for (int i = grid.length - 1; i >= 0; i--) {
+            lignePleine = true;
+            for (int j = 0; j < grid[0].length && lignePleine; j++) {
+                // Verifie si la Piece n'est pas en mouvement
+                if (grid[i][j] == null || grid[i][j] == moveablePiece) {
+                    lignePleine = false;
+                }
+            }
+            if (lignePleine) {
+                supprimerLigne(i);
+                i++;
+            }
+        }
+    }
 
-		score += 100;
-		this.notifyObserver();
+    /**
+     * Supprime une ligne et incrémente le score de 100, et à chaque palier de 1000, augmente le niveau
+     *
+     * @param indice un int correspondant à l'indice de la ligne à supprimer
+     */
+    private void supprimerLigne(int indice) {
 
-		if (score >= niveau * 1000 && niveau < 9) {
-			niveau++;
-			this.notifyObserver();
-			timeline.stop();
-			run();
-		}
-	}
+        // Décale la grille jusqu'à la ligne correspondante à l'indice fournie afin de la supprimer
+        for (int i = indice; i >= 0; i--) {
+            for (int j = 0; j < grid[0].length && i > 0; j++) {
+                grid[i][j] = grid[i - 1][j];
+            }
+        }
 
-	private boolean checkGameOver() {
-		for (int j = 0; j < grid[0].length; j++) {
-			if (grid[0][j] instanceof Piece && grid[0][j] != moveablePiece) {
-				return true;
-			}
-		}
-		return false;
-	}
+        score += 100;
 
-	private void changeCoord(ArrayList<int[]> coords) {
-		for (int[] coord : moveablePiece.getCoord()) {
-			grid[coord[0]][coord[1]] = null;
-		}
+        // On prévient le contrôleur du changement à chaque augmentation du score
+        this.notifyObserver();
 
-		for (int[] coord : coords) {
-			grid[coord[0]][coord[1]] = moveablePiece;
-		}
+        if (score >= niveau * 1000 && niveau < 9) {
+            niveau++;
 
-		moveablePiece.setCoord(coords);
-	}
+            // On prévient le contrôleur du changement à chaque augmentation du niveau
+            this.notifyObserver();
+            timeline.stop();
+            run();
+        }
+    }
 
-	private boolean checkPosition(ArrayList<int[]> newCoord) {
-		for (int[] coord : newCoord) {
-			if (coord[0] < 0 || coord[0] >= grid.length) {
-				return false;
-			}
-			if (coord[1] < 0 || coord[1] >= grid[0].length) {
-				return false;
-			}
-			if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != moveablePiece) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
+    /**
+     * Vérifie si le jeu est perdu
+     *
+     * @return true si le jeu est perdu, false sinon
+     */
+    private boolean checkGameOver() {
+        for (int j = 0; j < grid[0].length; j++) {
+            if (grid[0][j] instanceof Piece && grid[0][j] != moveablePiece) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	// GETTER
+    /**
+     * Change les coordonnées à la fois dans la matrice et dans le Piece en mouvement
+     *
+     * @param coords une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
+     */
+    private void changeCoord(ArrayList<int[]> coords) {
+        for (int[] coord : moveablePiece.getCoord()) {
+            grid[coord[0]][coord[1]] = null;
+        }
 
-	public Piece[][] getGridProchain() {
-		return gridProchain;
-	}
+        for (int[] coord : coords) {
+            grid[coord[0]][coord[1]] = moveablePiece;
+        }
 
-	public String getScore() {
-		return String.valueOf(score);
-	}
+        moveablePiece.setCoord(coords);
+    }
 
-	public String getNiveau() {
-		return String.valueOf(niveau);
-	}
+    /**
+     * Vérifie si les nouvelles coordonnées de la Piece ne sont pas sur une autre Piece ou en dehors de la grille
+     *
+     * @param newCoord une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
+     * @return true si les coordonnées sont bonnes, false sinon
+     */
+    private boolean checkPosition(ArrayList<int[]> newCoord) {
+        for (int[] coord : newCoord) {
+            if (coord[0] < 0 || coord[0] >= grid.length) {
+                return false;
+            }
+            if (coord[1] < 0 || coord[1] >= grid[0].length) {
+                return false;
+            }
+            if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != moveablePiece) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	public boolean isGameOver() {
-		return gameOver;
-	}
+
+    // GETTER
+
+    /**
+     * Retourne la grille de la prochaine Piece
+     *
+     * @return une matrice de Piece
+     */
+    public Piece[][] getGridProchain() {
+        return gridProchain;
+    }
+
+    /**
+     * Retourne le score
+     *
+     * @return un String
+     */
+    public String getScore() {
+        return String.valueOf(score);
+    }
+
+    /**
+     * Retourne le niveau
+     *
+     * @return un String
+     */
+    public String getNiveau() {
+        return String.valueOf(niveau);
+    }
+
+    /**
+     * Retourne le statut du jeu
+     *
+     * @return true le jeu est perdu, false sinon
+     */
+    public boolean isGameOver() {
+        return gameOver;
+    }
 }

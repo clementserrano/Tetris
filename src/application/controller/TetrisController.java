@@ -15,19 +15,37 @@ import javafx.scene.layout.GridPane;
 
 public class TetrisController extends GameController implements Initializable {
 
+    /**
+     * Grille affichant la prochaine Piece
+     */
 	@FXML
 	private GridPane gridViewProchain;
 
+    /**
+     * Label du score
+     */
 	@FXML
 	private Label lbScore;
 
+    /**
+     * Label du niveau courant
+     */
 	@FXML
 	private Label lbNiveau;
 
+    /**
+     * Labels de la grille représentant les cases du jeu
+     */
 	private Label[][] labels;
 
+    /**
+     * Labels de la grille de la prochaine Piece
+     */
 	private Label[][] labelsProchain;
 
+    /**
+     * Modèle du jeu Tetris
+     */
 	private Tetris game;
 
 	@Override
@@ -38,8 +56,11 @@ public class TetrisController extends GameController implements Initializable {
 		assert lbNiveau != null : "fx:id=\"lbNiveau\" was not injected: check your FXML file 'Tetris.fxml'.";
 	}
 
+    @Override
 	public void init() {
-		game.setObserver(this);
+
+	    // Passe la référence du contrôleur au modèle
+	    game.setObserver(this);
 
 		// Configuration de la grille de jeu
 
@@ -91,6 +112,7 @@ public class TetrisController extends GameController implements Initializable {
 		this.update();
 	}
 
+    @Override
 	public void update() {
 
 		if (game.isGameOver()) {
@@ -125,10 +147,6 @@ public class TetrisController extends GameController implements Initializable {
 
 			lbNiveau.setText(game.getNiveau());
 		}
-	}
-
-	public void setMain(Main main) {
-		this.main = main;
 	}
 
 	public void setGame(Tetris game) {
