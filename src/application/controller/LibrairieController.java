@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 public class LibrairieController {
 
 	/**
-	 * Appication JavaFX
+	 * Application JavaFX
 	 */
 	private Main main;
 

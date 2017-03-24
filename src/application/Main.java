@@ -1,6 +1,7 @@
 package application;
 
 import application.controller.LibrairieController;
+import application.controller.MenuController;
 import application.controller.TetrisController;
 import application.model.Tetris;
 import javafx.application.Application;
@@ -8,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -60,8 +62,34 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            // Affiche le menu des options
+            showMenu();
+
             // Affiche le menu de librairie
             showLirairie();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Charge et affiche le menu des options de l'application
+     */
+    public void showMenu() {
+        try {
+
+            // Charge la librairie
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Menu.fxml"));
+            AnchorPane menu = (AnchorPane) loader.load();
+
+            // Récupère le contrôleur et lui passe la référence du Main
+            MenuController controller = loader.getController();
+            controller.setMain(this);
+
+            // Affiche la librairie
+            rootLayout.setCenter(menu);
 
         } catch (Exception e) {
             e.printStackTrace();

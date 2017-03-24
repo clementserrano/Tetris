@@ -54,7 +54,7 @@ public class Tetris extends Game {
      * Construit le Tetris en initialisant ses attributs et en plaçant la première pièce
      */
     public Tetris() {
-        this.grid = new Piece[30][15];
+        this.grid = new Piece[30][16];
 
         this.gridProchain = new Piece[4][4];
 
