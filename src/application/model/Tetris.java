@@ -58,7 +58,7 @@ public class Tetris extends Game {
 
         this.gridProchain = new Piece[4][4];
 
-
+        
         // Sélection aléatoire de la prochaine Piece
         int rnd = new Random().nextInt(pieces.length);
         this.nextPiece = PieceFactory.getPiece(pieces[rnd]);
