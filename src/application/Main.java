@@ -3,6 +3,7 @@ package application;
 import application.controller.LibrairieController;
 import application.controller.MenuController;
 import application.controller.TetrisController;
+import application.model.Game;
 import application.model.Tetris;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,6 +35,16 @@ public class Main extends Application {
      * seul le Pane au centre du rootLayout sera changé
      */
     private BorderPane rootLayout;
+
+    /**
+     * Jeu en cours
+     */
+    private Game currentGame;
+
+    /**
+     * Contrôleur du menu
+     */
+    private MenuController menuController;
 
     @Override
     public void start(Stage primaryStage) {
@@ -68,6 +79,9 @@ public class Main extends Application {
             // Affiche le menu de librairie
             showLirairie();
 
+            // Met à jour le menu
+            menuController.updateMenu();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,8 +99,8 @@ public class Main extends Application {
             AnchorPane menu = (AnchorPane) loader.load();
 
             // Récupère le contrôleur et lui passe la référence du Main
-            MenuController controller = loader.getController();
-            controller.setMain(this);
+            menuController = loader.getController();
+            menuController.setMain(this);
 
             // Affiche la librairie
             rootLayout.setTop(menu);
@@ -102,6 +116,9 @@ public class Main extends Application {
     public void showLirairie() {
         try {
 
+            // Réinitialise le jeu
+            currentGame = null;
+
             // Charge la librairie
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/Librairie.fxml"));
@@ -113,6 +130,12 @@ public class Main extends Application {
 
             // Affiche la librairie
             rootLayout.setCenter(librairie);
+
+            // Met à jour le menu
+            menuController.updateMenu();
+
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Tetris
+            this.setSize(librairie);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,6 +155,7 @@ public class Main extends Application {
 
             // Créer le jeu Tetris
             Tetris game = new Tetris();
+            currentGame = game;
 
             // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Tetris
             TetrisController controller = loader.getController();
@@ -140,6 +164,9 @@ public class Main extends Application {
 
             // Affiche le Tetris
             rootLayout.setCenter(tetris);
+
+            // Met à jour le menu
+            menuController.updateMenu();
 
             // Redimensionne la fenêtre afin de correspondre à la taille de la vue Tetris
             this.setSize(tetris);
@@ -183,6 +210,9 @@ public class Main extends Application {
             // Affiche le Blokus
             rootLayout.setCenter(blokus);
 
+            // Met à jour le menu
+            menuController.updateMenu();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -205,6 +235,9 @@ public class Main extends Application {
             // Affiche le Blokus
             rootLayout.setCenter(puzzle);
 
+            // Met à jour le menu
+            menuController.updateMenu();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -218,8 +251,8 @@ public class Main extends Application {
     public void setSize(AnchorPane pane) {
 
         // Redimensionne la fenêtre en rajoutant de la hauteur correspondant à la barre de titre
-        primaryStage.setHeight(pane.getPrefHeight() + 50);
-        primaryStage.setWidth(pane.getPrefWidth());
+        primaryStage.setHeight(pane.getPrefHeight() + 80);
+        primaryStage.setWidth(pane.getPrefWidth()+30);
 
         // Repositionne la fenêtre au centre de l'écran
         primaryStage.centerOnScreen();
@@ -232,6 +265,15 @@ public class Main extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Retourne le jeu en cours
+     *
+     * @return un Game
+     */
+    public Game getCurrentGame() {
+        return currentGame;
     }
 
     /**

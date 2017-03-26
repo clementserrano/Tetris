@@ -59,6 +59,15 @@ public abstract class Game {
     }
 
     /**
+     * Retourne le timeline du jeu
+     *
+     * @return un Timeline
+     */
+    public Timeline getTimeline() {
+        return timeline;
+    }
+
+    /**
      * Associe le contrôleur au modèle (l'observeur à l'observé
      *
      * @param controller

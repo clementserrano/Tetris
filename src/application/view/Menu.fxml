@@ -5,22 +5,21 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="27.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuController">
+<AnchorPane prefHeight="27.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuController">
    <children>
       <MenuBar prefHeight="30.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="Options">
             <items>
-              <MenuItem fx:id="quitItem" mnemonicParsing="false" text="Quitter" />
-                  <MenuItem fx:id="libraryItem" mnemonicParsing="false" text="Revenir à la Librairie" />
+                  <MenuItem fx:id="libraryItem" mnemonicParsing="false" onAction="#handleLibrary" text="Revenir à la Librairie" />
+              <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quitter" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Jeu">
+          <Menu fx:id="jeuItem" mnemonicParsing="false" text="Jeu">
             <items>
-              <MenuItem fx:id="newGameItem" mnemonicParsing="false" text="Nouvelle Partie" />
-                  <MenuItem fx:id="pauseItem" mnemonicParsing="false" text="Pause" />
-                  <MenuItem fx:id="reprendreItem" mnemonicParsing="false" text="Reprendre" />
+              <MenuItem mnemonicParsing="false" onAction="#handleNewGame" text="Nouvelle Partie" />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePause" text="Pause" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleReprendre" text="Reprendre" />
             </items>
           </Menu>
         </menus>
