@@ -21,6 +21,15 @@ public class MenuController {
     @FXML
     Menu jeuItem;
 
+    @FXML
+    MenuItem newGameItem;
+
+    @FXML
+    MenuItem pauseItem;
+
+    @FXML
+    MenuItem reprendreItem;
+
     /**
      * Application JavaFX
      */
@@ -33,9 +42,15 @@ public class MenuController {
         if(main.getCurrentGame() == null){
             jeuItem.setVisible(false);
             libraryItem.setVisible(false);
-        }else{
+        }else {
             jeuItem.setVisible(true);
             libraryItem.setVisible(true);
+
+            if (main.getCurrentGame() instanceof Puzzle) {
+                pauseItem.setVisible(false);
+                reprendreItem.setVisible(false);
+            }
+
         }
     }
 
@@ -44,7 +59,10 @@ public class MenuController {
      */
     @FXML
     public void handleLibrary(){
-        main.getCurrentGame().getTimeline().stop();
+        if (main.getCurrentGame() instanceof Tetris) {
+            Tetris tetris = (Tetris) main.getCurrentGame();
+            tetris.getTimeline().stop();
+        }
         main.showLirairie();
     }
 
@@ -62,9 +80,10 @@ public class MenuController {
      */
     @FXML
     public void handleNewGame(){
-        main.getCurrentGame().getTimeline().stop();
 
         if(main.getCurrentGame() instanceof Tetris){
+            Tetris tetris = (Tetris) main.getCurrentGame();
+            tetris.getTimeline().stop();
             main.showTetris();
         }
 
@@ -82,7 +101,8 @@ public class MenuController {
      */
     @FXML
     public void handlePause(){
-        main.getCurrentGame().getTimeline().stop();
+        Tetris tetris = (Tetris) main.getCurrentGame();
+        tetris.getTimeline().stop();
     }
 
     /**
@@ -90,7 +110,8 @@ public class MenuController {
      */
     @FXML
     public void handleReprendre(){
-        main.getCurrentGame().run();
+        Tetris tetris = (Tetris) main.getCurrentGame();
+        tetris.run();
     }
 
     /**

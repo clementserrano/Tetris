@@ -19,6 +19,9 @@ public class PieceFactory {
         Piece piece;
 
         switch (name) {
+
+            // TETRIS
+
             case "S":
 
                 // Construit les coordonnées de la Piece
@@ -91,6 +94,46 @@ public class PieceFactory {
                 piece = new Piece(coord);
                 piece.setPivot(coord.get(3));
                 piece.setColor("#DC01FE");
+                return piece;
+
+            // PUZZLE
+
+            case "GG":
+                coord.add(new int[]{2, 0});
+                coord.add(new int[]{2, 1});
+                piece = new Piece(coord);
+                piece.setColor("red");
+                piece.setSens("horizontal");
+                return piece;
+            case "V2":
+                coord.add(new int[]{0, 0});
+                coord.add(new int[]{1, 0});
+                piece = new Piece(coord);
+                piece.setColor("orange");
+                piece.setSens("vertical");
+                return piece;
+            case "V3":
+                coord.add(new int[]{0, 0});
+                coord.add(new int[]{1, 0});
+                coord.add(new int[]{2, 0});
+                piece = new Piece(coord);
+                piece.setColor("blue");
+                piece.setSens("vertical");
+                return piece;
+            case "H2":
+                coord.add(new int[]{0, 0});
+                coord.add(new int[]{0, 1});
+                piece = new Piece(coord);
+                piece.setColor("green");
+                piece.setSens("horizontal");
+                return piece;
+            case "H3":
+                coord.add(new int[]{0, 0});
+                coord.add(new int[]{0, 1});
+                coord.add(new int[]{0, 2});
+                piece = new Piece(coord);
+                piece.setColor("yellow");
+                piece.setSens("horizontal");
                 return piece;
         }
         return null;

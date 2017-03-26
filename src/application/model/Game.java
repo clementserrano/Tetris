@@ -4,6 +4,8 @@ import application.controller.GameController;
 import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
+
 /**
  * Classe abstraite contenant les attributs et méthodes communs à tous les jeux
  */
@@ -21,32 +23,48 @@ public abstract class Game {
     protected GameController observer;
 
     /**
-     * Objet JavaFX permettant la boucle du jeu
-     */
-    protected Timeline timeline;
-
-    /**
-     * Mise en place de la boucle du jeu
-     */
-    public abstract void run();
-
-    /**
-     * Logique du jeu, à chaque itération du jeu cette méthode est appelée
-     */
-    protected abstract void logic();
-
-    /**
-     * Gestion des touches pressées du clavier
-     *
-     * @param keyCode Code de la touche pressée
-     */
-    public abstract void handleKeyPressed(KeyCode keyCode);
-
-    /**
      * Méthode permettant d'avertir le contrôleur qu'un changement a été effectué sur le modèle
      */
     public void notifyObserver() {
         observer.update();
+    }
+
+    /**
+     * Vérifie si les nouvelles coordonnées de la Piece ne sont pas sur une autre Piece ou en dehors de la grille
+     *
+     * @param newCoord une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
+     * @return true si les coordonnées sont bonnes, false sinon
+     */
+    protected boolean checkPosition(ArrayList<int[]> newCoord, Piece piece) {
+        for (int[] coord : newCoord) {
+            if (coord[0] < 0 || coord[0] >= grid.length) {
+                return false;
+            }
+            if (coord[1] < 0 || coord[1] >= grid[0].length) {
+                return false;
+            }
+            if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != piece) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Change les coordonnées à la fois dans la matrice et dans le Piece en mouvement
+     *
+     * @param coords une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
+     */
+    protected void changeCoord(ArrayList<int[]> coords, Piece piece) {
+        for (int[] coord : piece.getCoord()) {
+            grid[coord[0]][coord[1]] = null;
+        }
+
+        for (int[] coord : coords) {
+            grid[coord[0]][coord[1]] = piece;
+        }
+
+        piece.setCoord(coords);
     }
 
     /**
@@ -58,14 +76,6 @@ public abstract class Game {
         return grid;
     }
 
-    /**
-     * Retourne le timeline du jeu
-     *
-     * @return un Timeline
-     */
-    public Timeline getTimeline() {
-        return timeline;
-    }
 
     /**
      * Associe le contrôleur au modèle (l'observeur à l'observé

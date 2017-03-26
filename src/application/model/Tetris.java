@@ -16,6 +16,11 @@ import javafx.util.Duration;
 public class Tetris extends Game {
 
     /**
+     * Objet JavaFX permettant la boucle du jeu
+     */
+    protected Timeline timeline;
+
+    /**
      * Grille contenant la prochaine Piece à afficher
      */
     private Piece[][] gridProchain;
@@ -58,7 +63,7 @@ public class Tetris extends Game {
 
         this.gridProchain = new Piece[4][4];
 
-        
+
         // Sélection aléatoire de la prochaine Piece
         int rnd = new Random().nextInt(pieces.length);
         this.nextPiece = PieceFactory.getPiece(pieces[rnd]);
@@ -86,7 +91,9 @@ public class Tetris extends Game {
         this.gameOver = false;
     }
 
-    @Override
+    /**
+     * Mise en place de la boucle du jeu
+     */
     public void run() {
         // Met en place le timer du jeu en diminuant la fréquence d'intervalle de 100 ms/niveau (départ 1000 ms)
         timeline = new Timeline(new KeyFrame(Duration.millis(1000 - 100 * niveau), ae -> logic()));
@@ -94,7 +101,9 @@ public class Tetris extends Game {
         timeline.play();
     }
 
-    @Override
+    /**
+     * Logique du jeu, à chaque itération du jeu cette méthode est appelée
+     */
     public void logic() {
         // Si le jeu est perdu, on arrête le timer
         if (checkGameOver()) {
@@ -106,8 +115,8 @@ public class Tetris extends Game {
             ArrayList<int[]> newCoord = moveablePiece.toDown();
 
             // Si la Piece descend sans collision, on valide le changement de coordonnées
-            if (checkPosition(newCoord)) {
-                changeCoord(newCoord);
+            if (checkPosition(newCoord,moveablePiece)) {
+                changeCoord(newCoord,moveablePiece);
             } else {
 
                 // Sinon, on stoppe la Piece et on passe à la suivante
@@ -144,7 +153,11 @@ public class Tetris extends Game {
         notifyObserver();
     }
 
-    @Override
+    /**
+     * Gestion des touches pressées du clavier
+     *
+     * @param keyCode Code de la touche pressée
+     */
     public void handleKeyPressed(KeyCode keyCode) {
 
         // Si le jeu n'est pas perdu, on autorise les actions du joueur
@@ -168,8 +181,8 @@ public class Tetris extends Game {
                     return;
             }
 
-            if (checkPosition(newCoord)) {
-                changeCoord(newCoord);
+            if (checkPosition(newCoord,moveablePiece)) {
+                changeCoord(newCoord,moveablePiece);
             }
 
             // On prévient le contrôleur du changement à chaque action du joueur
@@ -242,45 +255,6 @@ public class Tetris extends Game {
         return false;
     }
 
-    /**
-     * Change les coordonnées à la fois dans la matrice et dans le Piece en mouvement
-     *
-     * @param coords une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
-     */
-    private void changeCoord(ArrayList<int[]> coords) {
-        for (int[] coord : moveablePiece.getCoord()) {
-            grid[coord[0]][coord[1]] = null;
-        }
-
-        for (int[] coord : coords) {
-            grid[coord[0]][coord[1]] = moveablePiece;
-        }
-
-        moveablePiece.setCoord(coords);
-    }
-
-    /**
-     * Vérifie si les nouvelles coordonnées de la Piece ne sont pas sur une autre Piece ou en dehors de la grille
-     *
-     * @param newCoord une liste de tableaux d'entiers : nouvelles coordonnées de la Piece
-     * @return true si les coordonnées sont bonnes, false sinon
-     */
-    private boolean checkPosition(ArrayList<int[]> newCoord) {
-        for (int[] coord : newCoord) {
-            if (coord[0] < 0 || coord[0] >= grid.length) {
-                return false;
-            }
-            if (coord[1] < 0 || coord[1] >= grid[0].length) {
-                return false;
-            }
-            if (grid[coord[0]][coord[1]] instanceof Piece && grid[coord[0]][coord[1]] != moveablePiece) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
     // GETTER
 
     /**
@@ -317,5 +291,14 @@ public class Tetris extends Game {
      */
     public boolean isGameOver() {
         return gameOver;
+    }
+
+    /**
+     * Retourne le timeline du jeu
+     *
+     * @return un Timeline
+     */
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

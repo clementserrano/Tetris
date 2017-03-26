@@ -2,8 +2,10 @@ package application;
 
 import application.controller.LibrairieController;
 import application.controller.MenuController;
+import application.controller.PuzzleController;
 import application.controller.TetrisController;
 import application.model.Game;
+import application.model.Puzzle;
 import application.model.Tetris;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -204,14 +207,14 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
             AnchorPane blokus = (AnchorPane) loader.load();
 
-            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Blokus
-            this.setSize(blokus);
-
             // Affiche le Blokus
             rootLayout.setCenter(blokus);
 
             // Met à jour le menu
             menuController.updateMenu();
+
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Blokus
+            this.setSize(blokus);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -229,14 +232,37 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/Puzzle.fxml"));
             AnchorPane puzzle = (AnchorPane) loader.load();
 
-            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Puzzle
-            this.setSize(puzzle);
+            // Créer le jeu Puzzle
+            Puzzle game = new Puzzle();
+            currentGame = game;
 
-            // Affiche le Blokus
+            // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Puzzle
+            PuzzleController controller = loader.getController();
+            controller.setMain(this);
+            controller.setGame(game);
+
+            // Affiche le Puzzle
             rootLayout.setCenter(puzzle);
 
             // Met à jour le menu
             menuController.updateMenu();
+
+            // Redimensionne la fenêtre afin de correspondre à la taille de la vue Puzzle
+            this.setSize(puzzle);
+
+            // Initialise les champs de la vue en fonction du jeu Puzzle
+            controller.init();
+
+            // Permet la gestion des touches pressées du clavier
+            primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+                // Le jeu Puzzle reçoit le code de la touche pressée et gère son comportement
+                @Override
+                public void handle(KeyEvent event) {
+                    game.handleKeyPressed(event.getCode());
+                }
+
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -252,7 +278,7 @@ public class Main extends Application {
 
         // Redimensionne la fenêtre en rajoutant de la hauteur correspondant à la barre de titre
         primaryStage.setHeight(pane.getPrefHeight() + 80);
-        primaryStage.setWidth(pane.getPrefWidth()+30);
+        primaryStage.setWidth(pane.getPrefWidth() + 30);
 
         // Repositionne la fenêtre au centre de l'écran
         primaryStage.centerOnScreen();

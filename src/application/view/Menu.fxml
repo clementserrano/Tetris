@@ -17,9 +17,9 @@
           </Menu>
           <Menu fx:id="jeuItem" mnemonicParsing="false" text="Jeu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleNewGame" text="Nouvelle Partie" />
-                  <MenuItem mnemonicParsing="false" onAction="#handlePause" text="Pause" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleReprendre" text="Reprendre" />
+              <MenuItem fx:id="newGameItem" mnemonicParsing="false" onAction="#handleNewGame" text="Nouvelle Partie" />
+                  <MenuItem fx:id="pauseItem" mnemonicParsing="false" onAction="#handlePause" text="Pause" />
+                  <MenuItem fx:id="reprendreItem" mnemonicParsing="false" onAction="#handleReprendre" text="Reprendre" />
             </items>
           </Menu>
         </menus>

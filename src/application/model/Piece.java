@@ -24,6 +24,12 @@ public class Piece {
     private String color;
 
     /**
+     * Sens de la pièce
+     */
+    private String sens;
+
+
+    /**
      * Construit une pièce avec les coordonnées fournies
      *
      * @param coord
@@ -54,7 +60,7 @@ public class Piece {
         }
 
         // Rajoute le pivot à la fin
-        left.add(newPivot);
+        if(newPivot != null) left.add(newPivot);
 
         return left;
     }
@@ -81,7 +87,7 @@ public class Piece {
         }
 
         // Rajoute le pivot à la fin
-        right.add(newPivot);
+        if(newPivot != null) right.add(newPivot);
 
         return right;
     }
@@ -107,9 +113,26 @@ public class Piece {
         }
 
         // Rajoute le pivot à la fin
-        down.add(newPivot);
+        if(newPivot != null) down.add(newPivot);
 
         return down;
+    }
+
+    /**
+     * Retourne une liste des coordonnées dans le cas où la pièce est décalée vers le haut.
+     *
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> toUp() {
+        ArrayList<int[]> up = new ArrayList<int[]>();
+
+        for (int[] cord : coord) {
+            int[] newCoord = new int[]{cord[0] - 1, cord[1]};
+
+            up.add(newCoord);
+        }
+
+        return up;
     }
 
     /**
@@ -143,7 +166,7 @@ public class Piece {
         }
 
         // Rajoute le pivot à la fin
-        rotate.add(newPivot);
+        if(newPivot != null) rotate.add(newPivot);
 
         return rotate;
     }
@@ -165,7 +188,7 @@ public class Piece {
      */
     public void setCoord(ArrayList<int[]> coord) {
         this.coord = coord;
-        pivot = coord.remove(coord.size() - 1);
+        if(pivot != null) pivot = coord.remove(coord.size() - 1);
     }
 
     /**
@@ -195,4 +218,21 @@ public class Piece {
         this.color = color;
     }
 
+    /**
+     * Retourne le sens de la pièce
+     *
+     * @return un String
+     */
+    public String getSens() {
+        return sens;
+    }
+
+    /**
+     * Modifie le sens de la pièce
+     *
+     * @param sens
+     */
+    public void setSens(String sens) {
+        this.sens = sens;
+    }
 }

@@ -3,6 +3,7 @@ package application.controller;
 import application.Main;
 import application.model.Game;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -17,9 +18,9 @@ public abstract class GameController {
 	protected GridPane gridView;
 
 	/**
-	 * Modèle du jeu
+	 * Labels de la grille représentant les cases du jeu
 	 */
-	protected Game game;
+	protected Label[][] labels;
 
 	/**
 	 * Application JavaFX
@@ -43,14 +44,5 @@ public abstract class GameController {
 	 */
 	public void setMain(Main main) {
 		this.main = main;
-	}
-
-	/**
-	 * Modifie la référence du jeu
-	 *
-	 * @param game
-	 */
-	public void setGame(Game game) {
-		this.game = game;
 	}
 }

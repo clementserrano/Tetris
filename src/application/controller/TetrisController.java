@@ -34,11 +34,6 @@ public class TetrisController extends GameController implements Initializable {
 	private Label lbNiveau;
 
     /**
-     * Labels de la grille représentant les cases du jeu
-     */
-	private Label[][] labels;
-
-    /**
      * Labels de la grille de la prochaine Piece
      */
 	private Label[][] labelsProchain;
