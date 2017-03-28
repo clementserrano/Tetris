@@ -70,6 +70,7 @@ public class Tetris extends Game {
 
         // Place la prochaine Piece dans sa grille
         for (int[] coord : nextPiece.getCoord()) {
+        	//coord[1] += gridProchain[0].length / 2;
             gridProchain[coord[0]][coord[1]] = nextPiece;
         }
 
