@@ -11,7 +11,8 @@ public class Puzzle extends Game {
     /**
      * Tableau des noms des Piece du Puzzle
      */
-    private String[] pieces = {"V2", "V3", "H2", "H3"};
+    private String[] pieces = {"P1", "P2", "P3", "P4","P5","P6","P9","P10","P11"};
+    //private String[] pieces = {"P1", "P2", "P3", "P4","P5","P6","P7","P8","P9","P10","P11"};
 
     /**
      * Informe si la partie est gagnée ou non
@@ -36,46 +37,19 @@ public class Puzzle extends Game {
         this.grid = new Piece[6][6];
         this.gameWon = false;
 
-        pieceGagante = PieceFactory.getPiece("GG");
+        pieceGagante = PieceFactory.getPiece("P0");
         for (int[] coord : pieceGagante.getCoord()) {
             grid[coord[0]][coord[1]] = pieceGagante;
         }
 
-        int lastRnd = -1;
-        int rnd = 0;
-
-        // Placement des Piece (11 Piece)
-        for(int i=0;i<5;i++) {
-
-            boolean piecePose = false;
-
-            while (!piecePose) {
-
-                // Sélection aléatoire de la Piece
-                do {
-                    rnd = new Random().nextInt(pieces.length);
-                } while (rnd == lastRnd);
-                Piece piece = PieceFactory.getPiece(pieces[rnd]);
-
-                // On essaye de poser la pièce à chaque endroit possible
-                while (!checkPosition(piece.getCoord(), piece) && piece.getCoord().get(piece.getCoord().size() - 1)[1] <= this.grid.length) {
-
-                    if (piece.getCoord().get(piece.getCoord().size() - 1)[1] >= this.grid[0].length) {
-                        piece.setCoord(piece.toDown());
-                    }
-
-                    piece.setCoord(piece.toRight());
-                }
-
-                if (checkPosition(piece.getCoord(), piece)) {
-                    changeCoord(piece.getCoord(), piece);
-                    piecePose = true;
-                }
+        for(String name : pieces){
+            Piece piece = PieceFactory.getPiece(name);
+            for (int[] coord : piece.getCoord()) {
+                grid[coord[0]][coord[1]] = piece;
             }
-
-            lastRnd = rnd;
-            i++;
         }
+
+
     }
 
     /**

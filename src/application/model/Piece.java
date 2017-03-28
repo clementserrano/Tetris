@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Piece contenant les coordonées d'une pièce et les méthode de transformations de ses coordonnées.
  * Contient également la couleur de la pièce, utilisée ensuite par la vue.
  */
-public class Piece {
+public class Piece{
 
     /**
      * Liste des coordonnées de la pièce
@@ -169,6 +169,27 @@ public class Piece {
         if(newPivot != null) rotate.add(newPivot);
 
         return rotate;
+    }
+
+    /**
+     * Déplace la pièce selon un vecteur
+     *
+     * @param vector
+     * @return une ArrayList de tableaux d'entier
+     */
+    public ArrayList<int[]> move(int[] vector){
+
+        ArrayList<int[]> newCoord = new ArrayList<int[]>();
+
+        for(int[] cord : coord){
+            newCoord.add(new int[]{cord[0]+vector[0],cord[1]+vector[1]});
+        }
+
+        if(pivot != null){
+            newCoord.add(new int[]{pivot[0]+vector[0],pivot[1]+vector[1]});
+        }
+
+        return newCoord;
     }
 
     /**

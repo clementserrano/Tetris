@@ -98,43 +98,167 @@ public class PieceFactory {
 
             // PUZZLE
 
-            case "GG":
+            case "P0":
                 coord.add(new int[]{2, 0});
                 coord.add(new int[]{2, 1});
                 piece = new Piece(coord);
                 piece.setColor("red");
                 piece.setSens("horizontal");
                 return piece;
-            case "V2":
-                coord.add(new int[]{0, 0});
-                coord.add(new int[]{1, 0});
+            case "P1":
+                coord.add(new int[]{0, 1});
+                coord.add(new int[]{0, 2});
+                coord.add(new int[]{0, 3});
                 piece = new Piece(coord);
                 piece.setColor("orange");
-                piece.setSens("vertical");
+                piece.setSens("horizontal");
                 return piece;
-            case "V3":
-                coord.add(new int[]{0, 0});
-                coord.add(new int[]{1, 0});
-                coord.add(new int[]{2, 0});
+            case "P2":
+                coord.add(new int[]{1, 2});
+                coord.add(new int[]{1, 3});
                 piece = new Piece(coord);
                 piece.setColor("blue");
+                piece.setSens("horizontal");
+                return piece;
+            case "P3":
+                coord.add(new int[]{1, 4});
+                coord.add(new int[]{2, 4});
+                piece = new Piece(coord);
+                piece.setColor("green");
                 piece.setSens("vertical");
                 return piece;
-            case "H2":
+            case "P4":
+                coord.add(new int[]{1, 5});
+                coord.add(new int[]{2, 5});
+                piece = new Piece(coord);
+                piece.setColor("yellow");
+                piece.setSens("vertical");
+                return piece;
+            case "P5":
+                coord.add(new int[]{2, 2});
+                coord.add(new int[]{3, 2});
+                piece = new Piece(coord);
+                piece.setColor("pink");
+                piece.setSens("vertical");
+                return piece;
+            case "P6":
+                coord.add(new int[]{2, 3});
+                coord.add(new int[]{3, 3});
+                piece = new Piece(coord);
+                piece.setColor("purple");
+                piece.setSens("vertical");
+                return piece;
+            case "P7":
+                coord.add(new int[]{3, 4});
+                coord.add(new int[]{3, 5});
+                piece = new Piece(coord);
+                piece.setColor("brown");
+                piece.setSens("horizontal");
+                return piece;
+            case "P8":
+                coord.add(new int[]{3, 0});
+                coord.add(new int[]{4, 0});
+                piece = new Piece(coord);
+                piece.setColor("black");
+                piece.setSens("vertical");
+                return piece;
+            case "P9":
+                coord.add(new int[]{4, 1});
+                coord.add(new int[]{4, 2});
+                piece = new Piece(coord);
+                piece.setColor("lightgrey");
+                piece.setSens("horizontal");
+                return piece;
+            case "P10":
+                coord.add(new int[]{4, 3});
+                coord.add(new int[]{5, 3});
+                piece = new Piece(coord);
+                piece.setColor("cyan");
+                piece.setSens("vertical");
+                return piece;
+            case "P11":
+                coord.add(new int[]{4, 4});
+                coord.add(new int[]{4, 5});
+                piece = new Piece(coord);
+                piece.setColor("indigo");
+                piece.setSens("horizontal");
+                return piece;
+
+            // BLOKUS
+
+            case "B1":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                piece.setPivot(coord.get(0));
+                return piece;
+            case "B2":
                 coord.add(new int[]{0, 0});
                 coord.add(new int[]{0, 1});
                 piece = new Piece(coord);
-                piece.setColor("green");
-                piece.setSens("horizontal");
+                piece.setPivot(coord.get(0));
                 return piece;
-            case "H3":
+            case "B3":
+                coord.add(new int[]{0, 0});
+                coord.add(new int[]{0, 1});
+                coord.add(new int[]{1, 1});
+                piece = new Piece(coord);
+                piece.setPivot(coord.get(0));
+                return piece;
+            case "B4":
                 coord.add(new int[]{0, 0});
                 coord.add(new int[]{0, 1});
                 coord.add(new int[]{0, 2});
                 piece = new Piece(coord);
-                piece.setColor("yellow");
-                piece.setSens("horizontal");
+                piece.setPivot(coord.get(0));
                 return piece;
+            /*case "B5":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B6":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B7":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B8":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B9":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B10":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B11":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B12":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B13":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B14":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B15":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;
+            case "B16":
+                coord.add(new int[]{0, 0});
+                piece = new Piece(coord);
+                return piece;*/
         }
         return null;
     }

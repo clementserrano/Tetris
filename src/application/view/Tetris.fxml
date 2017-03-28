@@ -5,31 +5,31 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" styleClass="backgroundFond" stylesheets="@tetris.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TetrisController">
+<AnchorPane prefHeight="600.0" prefWidth="570.0" styleClass="backgroundFond" stylesheets="@tetris.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.TetrisController">
    <children>
-      <Label layoutX="419.0" layoutY="467.0" text="Score :" AnchorPane.bottomAnchor="99.0" AnchorPane.rightAnchor="113.0">
+      <Label layoutX="463.0" layoutY="349.0" text="Score" AnchorPane.bottomAnchor="317.0" AnchorPane.rightAnchor="80.0">
          <font>
-            <Font size="23.0" />
+            <Font name="Calibri" size="29.0" />
          </font>
       </Label>
-      <Label fx:id="lbScore" layoutX="501.0" layoutY="467.0" text="Label" AnchorPane.bottomAnchor="99.0" AnchorPane.rightAnchor="30.0">
+      <Label fx:id="lbScore" layoutX="465.0" layoutY="390.0" text="Label" AnchorPane.bottomAnchor="276.0" AnchorPane.rightAnchor="81.0">
          <font>
-            <Font size="23.0" />
+            <Font name="Calibri Bold" size="29.0" />
          </font>
       </Label>
-      <Label layoutX="418.0" layoutY="516.0" text="Niveau : " AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="93.0">
+      <Label layoutX="446.0" layoutY="503.0" text="Niveau" AnchorPane.bottomAnchor="162.0" AnchorPane.rightAnchor="71.0">
          <font>
-            <Font size="23.0" />
+            <Font name="Calibri" size="29.0" />
          </font>
       </Label>
-      <Label fx:id="lbNiveau" layoutX="515.0" layoutY="516.0" text="Label" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="30.0">
+      <Label fx:id="lbNiveau" layoutX="457.0" layoutY="545.0" text="Label" AnchorPane.bottomAnchor="120.0" AnchorPane.rightAnchor="79.0">
          <font>
-            <Font size="23.0" />
+            <Font name="Calibri Bold" size="29.0" />
          </font>
       </Label>
-      <Label layoutX="452.0" layoutY="49.0" text="Prochain" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="49.0">
+      <Label layoutX="449.0" layoutY="60.0" text="Prochain" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="60.0">
          <font>
-            <Font size="22.0" />
+            <Font name="Calibri" size="26.0" />
          </font>
       </Label>
       <GridPane fx:id="gridView" layoutX="40.0" layoutY="37.0" prefHeight="524.0" prefWidth="344.0" styleClass="backgroundJeu" stylesheets="@tetris.css" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="216.0" AnchorPane.topAnchor="37.0" />

@@ -144,6 +144,11 @@ public class TetrisController extends GameController implements Initializable {
 		}
 	}
 
+	@Override
+	public void handleMouseClicked(int i, int j, boolean inHand) {
+		// do nothing
+	}
+
 	public void setGame(Tetris game) {
 		this.game = game;
 	}

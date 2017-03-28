@@ -2,7 +2,6 @@ package application.controller;
 
 import application.model.Piece;
 import application.model.Puzzle;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -53,7 +52,7 @@ public class PuzzleController extends GameController implements Initializable {
                 gridView.getChildren().add(label);
 
                 // Permet la gestion des clics de la souris
-                label.addEventHandler(MouseEvent.MOUSE_CLICKED, new LabelClickedHandler(i, j, this));
+                label.addEventHandler(MouseEvent.MOUSE_CLICKED, new LabelClickedHandler(i, j, this, false));
 
                 labels[i][j] = label;
             }
@@ -74,7 +73,7 @@ public class PuzzleController extends GameController implements Initializable {
                 for (int j = 0; j < game.getGrid()[0].length; j++) {
                     if (game.getGrid()[i][j] != null) {
                         labels[i][j].setStyle(
-                                "-fx-border-color:grey;-fx-background-color:" + game.getGrid()[i][j].getColor() + ";");
+                                "-fx-background-color:" + game.getGrid()[i][j].getColor() + ";");
                     } else {
                         labels[i][j].setStyle("");
                     }
@@ -89,7 +88,7 @@ public class PuzzleController extends GameController implements Initializable {
      * @param i ligne du label cliqué
      * @param j colonne du label cliqué
      */
-    public void handleMouseClicked(int i, int j) {
+    public void handleMouseClicked(int i, int j, boolean inHand) {
 
         Piece piece = game.getGrid()[i][j];
         if (piece != null) game.handleMouseClicked(piece);

@@ -23,11 +23,6 @@ public abstract class GameController {
 	protected Label[][] labels;
 
 	/**
-	 * Application JavaFX
-	 */
-	protected Main main;
-
-	/**
 	 * Initialise la vue avec les valeurs du modèle
 	 */
 	public abstract void init();
@@ -37,12 +32,11 @@ public abstract class GameController {
 	 */
 	public abstract void update();
 
+
 	/**
-	 * Modifie la référence du Main
-	 *
-	 * @param main
+	 * Gestion de la souris
+	 * @param i
+	 * @param j
 	 */
-	public void setMain(Main main) {
-		this.main = main;
-	}
+    public abstract void handleMouseClicked(int i, int j, boolean inHand);
 }

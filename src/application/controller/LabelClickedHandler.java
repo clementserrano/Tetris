@@ -21,7 +21,9 @@ public class LabelClickedHandler implements EventHandler<MouseEvent> {
     /**
      * Contrôleur du Puzzle
      */
-    private PuzzleController controller;
+    private GameController controller;
+
+    private boolean inHand;
 
     /**
      * Construit l'écouteur avec les coordonnées du label et le contrôleur du Puzzle
@@ -29,14 +31,15 @@ public class LabelClickedHandler implements EventHandler<MouseEvent> {
      * @param i
      * @param j
      */
-    public LabelClickedHandler(int i, int j, PuzzleController controller){
+    public LabelClickedHandler(int i, int j, GameController controller, boolean inHand){
         this.i=i;
         this.j=j;
         this.controller=controller;
+        this.inHand = inHand;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        controller.handleMouseClicked(i,j);
+        controller.handleMouseClicked(i,j,inHand);
     }
 }

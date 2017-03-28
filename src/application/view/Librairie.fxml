@@ -5,19 +5,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="205.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LibrairieController">
+<AnchorPane prefHeight="243.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LibrairieController">
    <children>
       <Button layoutX="5.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLaunchTetris" prefHeight="150.0" prefWidth="150.0">
          <graphic>
-            <ImageView fitHeight="175.0" fitWidth="175.0">
+            <ImageView fitHeight="215.0" fitWidth="175.0">
                <image>
                   <Image url="application/ressources/tetris_icone.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="215.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLaunchBlokus" prefHeight="175.0" prefWidth="150.0">
+      <Button layoutX="215.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLaunchBlokus" prefHeight="211.0" prefWidth="195.0">
          <graphic>
-            <ImageView fitHeight="175.0" fitWidth="175.0">
+            <ImageView fitHeight="213.0" fitWidth="175.0">
                <image>
                   <Image url="application/ressources/Blokus-Icon.png" />
                </image>
@@ -25,7 +25,7 @@
          </graphic></Button>
       <Button layoutX="425.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLaunchPuzzle" prefHeight="175.0" prefWidth="150.0">
          <graphic>
-            <ImageView fitHeight="175.0" fitWidth="175.0">
+            <ImageView fitHeight="213.0" fitWidth="175.0">
                <image>
                   <Image url="application/ressources/Puzzle-Icon.png" />
                </image>

@@ -1,9 +1,7 @@
 package application;
 
-import application.controller.LibrairieController;
-import application.controller.MenuController;
-import application.controller.PuzzleController;
-import application.controller.TetrisController;
+import application.controller.*;
+import application.model.Blokus;
 import application.model.Game;
 import application.model.Puzzle;
 import application.model.Tetris;
@@ -162,7 +160,6 @@ public class Main extends Application {
 
             // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Tetris
             TetrisController controller = loader.getController();
-            controller.setMain(this);
             controller.setGame(game);
 
             // Affiche le Tetris
@@ -207,6 +204,14 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/Blokus.fxml"));
             AnchorPane blokus = (AnchorPane) loader.load();
 
+            // Créer le jeu Blokus
+            Blokus game = new Blokus();
+            currentGame = game;
+
+            // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Blokus
+            BlokusController controller = loader.getController();
+            controller.setGame(game);
+
             // Affiche le Blokus
             rootLayout.setCenter(blokus);
 
@@ -215,6 +220,9 @@ public class Main extends Application {
 
             // Redimensionne la fenêtre afin de correspondre à la taille de la vue Blokus
             this.setSize(blokus);
+
+            // Initialise les champs de la vue en fonction du jeu Blokus
+            controller.init();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -238,7 +246,6 @@ public class Main extends Application {
 
             // Récupère le contrôleur de la vue et lui passe les référence du Main et du jeu Puzzle
             PuzzleController controller = loader.getController();
-            controller.setMain(this);
             controller.setGame(game);
 
             // Affiche le Puzzle

@@ -59,7 +59,7 @@ public class Tetris extends Game {
      * Construit le Tetris en initialisant ses attributs et en plaçant la première pièce
      */
     public Tetris() {
-        this.grid = new Piece[30][16];
+        this.grid = new Piece[22][10];
 
         this.gridProchain = new Piece[4][4];
 
@@ -160,8 +160,8 @@ public class Tetris extends Game {
      */
     public void handleKeyPressed(KeyCode keyCode) {
 
-        // Si le jeu n'est pas perdu, on autorise les actions du joueur
-        if (!isGameOver()) {
+        // Si le jeu n'est pas perdu ou en pause, on autorise les actions du joueur
+        if (!isGameOver() && timeline.getStatus() == Animation.Status.RUNNING) {
             ArrayList<int[]> newCoord = moveablePiece.getCoord();
 
             switch (keyCode) {

@@ -46,7 +46,7 @@ public class MenuController {
             jeuItem.setVisible(true);
             libraryItem.setVisible(true);
 
-            if (main.getCurrentGame() instanceof Puzzle) {
+            if (!(main.getCurrentGame() instanceof Tetris)) {
                 pauseItem.setVisible(false);
                 reprendreItem.setVisible(false);
             }
