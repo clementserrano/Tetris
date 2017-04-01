@@ -3,11 +3,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="684.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.BlokusController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.BlokusController">
    <children>
       <GridPane fx:id="gridView" layoutX="265.0" layoutY="38.0" prefHeight="303.0" prefWidth="371.0">
       </GridPane>
-      <GridPane fx:id="gridMain" layoutX="59.0" layoutY="535.0" prefHeight="117.0" prefWidth="761.0">
+      <GridPane fx:id="gridMain" layoutX="59.0" layoutY="449.0" prefHeight="117.0" prefWidth="761.0">
       </GridPane>
    </children>
 </AnchorPane>

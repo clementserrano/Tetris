@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Piece contenant les coordonées d'une pièce et les méthode de transformations de ses coordonnées.
  * Contient également la couleur de la pièce, utilisée ensuite par la vue.
  */
-public class Piece{
+public class Piece {
 
     /**
      * Liste des coordonnées de la pièce
@@ -60,7 +60,7 @@ public class Piece{
         }
 
         // Rajoute le pivot à la fin
-        if(newPivot != null) left.add(newPivot);
+        if (newPivot != null) left.add(newPivot);
 
         return left;
     }
@@ -87,7 +87,7 @@ public class Piece{
         }
 
         // Rajoute le pivot à la fin
-        if(newPivot != null) right.add(newPivot);
+        if (newPivot != null) right.add(newPivot);
 
         return right;
     }
@@ -113,7 +113,7 @@ public class Piece{
         }
 
         // Rajoute le pivot à la fin
-        if(newPivot != null) down.add(newPivot);
+        if (newPivot != null) down.add(newPivot);
 
         return down;
     }
@@ -166,7 +166,7 @@ public class Piece{
         }
 
         // Rajoute le pivot à la fin
-        if(newPivot != null) rotate.add(newPivot);
+        if (newPivot != null) rotate.add(newPivot);
 
         return rotate;
     }
@@ -177,16 +177,16 @@ public class Piece{
      * @param vector
      * @return une ArrayList de tableaux d'entier
      */
-    public ArrayList<int[]> move(int[] vector){
+    public ArrayList<int[]> move(int[] vector) {
 
         ArrayList<int[]> newCoord = new ArrayList<int[]>();
 
-        for(int[] cord : coord){
-            newCoord.add(new int[]{cord[0]+vector[0],cord[1]+vector[1]});
+        for (int[] cord : coord) {
+            newCoord.add(new int[]{cord[0] + vector[0], cord[1] + vector[1]});
         }
 
-        if(pivot != null){
-            newCoord.add(new int[]{pivot[0]+vector[0],pivot[1]+vector[1]});
+        if (pivot != null) {
+            newCoord.add(new int[]{pivot[0] + vector[0], pivot[1] + vector[1]});
         }
 
         return newCoord;
@@ -209,7 +209,7 @@ public class Piece{
      */
     public void setCoord(ArrayList<int[]> coord) {
         this.coord = coord;
-        if(pivot != null) pivot = coord.remove(coord.size() - 1);
+        if (pivot != null) pivot = coord.remove(coord.size() - 1);
     }
 
     /**

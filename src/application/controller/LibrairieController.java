@@ -9,41 +9,41 @@ import javafx.fxml.FXML;
  */
 public class LibrairieController {
 
-	/**
-	 * Application JavaFX
-	 */
-	private Main main;
+    /**
+     * Application JavaFX
+     */
+    private Main main;
 
-	/**
-	 * Modifie la référence du Main
-	 *
-	 * @param main
-	 */
-	public void setMain(Main main){
-		this.main = main;
-	}
+    /**
+     * Modifie la référence du Main
+     *
+     * @param main
+     */
+    public void setMain(Main main) {
+        this.main = main;
+    }
 
-	/**
-	 * Lance le Tetris
-	 */
-	@FXML
-	public void handleLaunchTetris(){
-		main.showTetris();
-	}
+    /**
+     * Lance le Tetris
+     */
+    @FXML
+    public void handleLaunchTetris() {
+        main.showTetris();
+    }
 
-	/**
-	 * Lance le Blokus
-	 */
-	@FXML
-	public void handleLaunchBlokus(){
-		main.showBlokus();
-	}
+    /**
+     * Lance le Blokus
+     */
+    @FXML
+    public void handleLaunchBlokus() {
+        main.showBlokus();
+    }
 
-	/**
-	 * Lance le Puzzle
-	 */
-	@FXML
-	public void handleLaunchPuzzle(){
-		main.showPuzzle();
-	}
+    /**
+     * Lance le Puzzle
+     */
+    @FXML
+    public void handleLaunchPuzzle() {
+        main.showPuzzle();
+    }
 }

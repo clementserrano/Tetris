@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Created by Lenovo on 26/03/2017.
+ * Écouteur d'un label.
  */
 public class LabelClickedHandler implements EventHandler<MouseEvent> {
 
@@ -31,15 +31,15 @@ public class LabelClickedHandler implements EventHandler<MouseEvent> {
      * @param i
      * @param j
      */
-    public LabelClickedHandler(int i, int j, GameController controller, boolean inHand){
-        this.i=i;
-        this.j=j;
-        this.controller=controller;
+    public LabelClickedHandler(int i, int j, GameController controller, boolean inHand) {
+        this.i = i;
+        this.j = j;
+        this.controller = controller;
         this.inHand = inHand;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        controller.handleMouseClicked(i,j,inHand);
+        controller.handleMouseClicked(i, j, inHand);
     }
 }

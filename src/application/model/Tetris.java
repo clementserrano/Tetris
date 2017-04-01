@@ -1,14 +1,13 @@
 package application.model;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import application.controller.GameController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Modèle du jeu Tetris
@@ -70,7 +69,7 @@ public class Tetris extends Game {
 
         // Place la prochaine Piece dans sa grille
         for (int[] coord : nextPiece.getCoord()) {
-        	//coord[1] += gridProchain[0].length / 2;
+            //coord[1] += gridProchain[0].length / 2;
             gridProchain[coord[0]][coord[1]] = nextPiece;
         }
 
@@ -116,8 +115,8 @@ public class Tetris extends Game {
             ArrayList<int[]> newCoord = moveablePiece.toDown();
 
             // Si la Piece descend sans collision, on valide le changement de coordonnées
-            if (checkPosition(newCoord,moveablePiece)) {
-                changeCoord(newCoord,moveablePiece);
+            if (checkPosition(newCoord, moveablePiece, grid)) {
+                changeCoord(newCoord, moveablePiece, grid);
             } else {
 
                 // Sinon, on stoppe la Piece et on passe à la suivante
@@ -182,8 +181,8 @@ public class Tetris extends Game {
                     return;
             }
 
-            if (checkPosition(newCoord,moveablePiece)) {
-                changeCoord(newCoord,moveablePiece);
+            if (checkPosition(newCoord, moveablePiece, grid)) {
+                changeCoord(newCoord, moveablePiece, grid);
             }
 
             // On prévient le contrôleur du changement à chaque action du joueur

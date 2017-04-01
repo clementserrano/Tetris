@@ -2,7 +2,6 @@ package application.controller;
 
 import application.Main;
 import application.model.Blokus;
-import application.model.Game;
 import application.model.Puzzle;
 import application.model.Tetris;
 import javafx.application.Platform;
@@ -11,7 +10,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 /**
- * Created by clementserrano on 24/03/2017.
+ * Contrôleur du menu
  */
 public class MenuController {
 
@@ -38,11 +37,11 @@ public class MenuController {
     /**
      * Met à jour le jeu en cours
      */
-    public void updateMenu(){
-        if(main.getCurrentGame() == null){
+    public void updateMenu() {
+        if (main.getCurrentGame() == null) {
             jeuItem.setVisible(false);
             libraryItem.setVisible(false);
-        }else {
+        } else {
             jeuItem.setVisible(true);
             libraryItem.setVisible(true);
 
@@ -58,7 +57,7 @@ public class MenuController {
      * Retourne à la librairie
      */
     @FXML
-    public void handleLibrary(){
+    public void handleLibrary() {
         if (main.getCurrentGame() instanceof Tetris) {
             Tetris tetris = (Tetris) main.getCurrentGame();
             tetris.getTimeline().stop();
@@ -70,7 +69,7 @@ public class MenuController {
      * Quitte l'application
      */
     @FXML
-    public void handleQuit(){
+    public void handleQuit() {
         Platform.exit();
         System.exit(0);
     }
@@ -79,19 +78,19 @@ public class MenuController {
      * Lance une nouvelle partie
      */
     @FXML
-    public void handleNewGame(){
+    public void handleNewGame() {
 
-        if(main.getCurrentGame() instanceof Tetris){
+        if (main.getCurrentGame() instanceof Tetris) {
             Tetris tetris = (Tetris) main.getCurrentGame();
             tetris.getTimeline().stop();
             main.showTetris();
         }
 
-        if(main.getCurrentGame() instanceof Puzzle){
+        if (main.getCurrentGame() instanceof Puzzle) {
             main.showPuzzle();
         }
 
-        if(main.getCurrentGame() instanceof Blokus){
+        if (main.getCurrentGame() instanceof Blokus) {
             main.showBlokus();
         }
     }
@@ -100,7 +99,7 @@ public class MenuController {
      * Met le jeu en pause
      */
     @FXML
-    public void handlePause(){
+    public void handlePause() {
         Tetris tetris = (Tetris) main.getCurrentGame();
         tetris.getTimeline().stop();
     }
@@ -109,7 +108,7 @@ public class MenuController {
      * Reprend le jeu
      */
     @FXML
-    public void handleReprendre(){
+    public void handleReprendre() {
         Tetris tetris = (Tetris) main.getCurrentGame();
         tetris.run();
     }
@@ -119,7 +118,7 @@ public class MenuController {
      *
      * @param main
      */
-    public void setMain(Main main){
+    public void setMain(Main main) {
         this.main = main;
     }
 }

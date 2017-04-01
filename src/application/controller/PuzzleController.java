@@ -3,16 +3,14 @@ package application.controller;
 import application.model.Piece;
 import application.model.Puzzle;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by clementserrano on 26/03/2017.
+ * Contrôleur du Puzzle
  */
 public class PuzzleController extends GameController implements Initializable {
 
@@ -32,31 +30,9 @@ public class PuzzleController extends GameController implements Initializable {
         game.setObserver(this);
 
         // Configuration de la grille de jeu
-
         gridView.setStyle("-fx-border-color:grey");
-
-        double height = gridView.getPrefHeight() / game.getGrid().length;
-        double width = gridView.getPrefWidth() / game.getGrid()[0].length;
-
         labels = new Label[game.getGrid().length][game.getGrid()[0].length];
-
-        for (int i = 0; i < game.getGrid().length; i++) {
-            for (int j = 0; j < game.getGrid()[0].length; j++) {
-                Label label = new Label();
-                label.setPrefHeight(height);
-                label.setPrefWidth(width);
-                label.setAlignment(Pos.CENTER);
-
-                gridView.setRowIndex(label, i);
-                gridView.setColumnIndex(label, j);
-                gridView.getChildren().add(label);
-
-                // Permet la gestion des clics de la souris
-                label.addEventHandler(MouseEvent.MOUSE_CLICKED, new LabelClickedHandler(i, j, this, false));
-
-                labels[i][j] = label;
-            }
-        }
+        fillGridEvent(gridView, game.getGrid(), labels, false);
 
         this.update();
     }

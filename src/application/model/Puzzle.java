@@ -2,16 +2,17 @@ package application.model;
 
 import javafx.scene.input.KeyCode;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 
+/**
+ * Jeu Puzzle
+ */
 public class Puzzle extends Game {
 
     /**
      * Tableau des noms des Piece du Puzzle
      */
-    private String[] pieces = {"P1", "P2", "P3", "P4","P5","P6","P9","P10","P11"};
+    private String[] pieces = {"P1", "P2", "P3", "P4", "P5", "P6", "P9", "P10", "P11"};
     //private String[] pieces = {"P1", "P2", "P3", "P4","P5","P6","P7","P8","P9","P10","P11"};
 
     /**
@@ -42,7 +43,7 @@ public class Puzzle extends Game {
             grid[coord[0]][coord[1]] = pieceGagante;
         }
 
-        for(String name : pieces){
+        for (String name : pieces) {
             Piece piece = PieceFactory.getPiece(name);
             for (int[] coord : piece.getCoord()) {
                 grid[coord[0]][coord[1]] = piece;
@@ -89,8 +90,8 @@ public class Puzzle extends Game {
                     return;
             }
 
-            if (checkPosition(newCoord, selectedPiece)) {
-                changeCoord(newCoord, selectedPiece);
+            if (checkPosition(newCoord, selectedPiece, grid)) {
+                changeCoord(newCoord, selectedPiece, grid);
             }
 
             int[] coord = pieceGagante.getCoord().get(pieceGagante.getCoord().size() - 1);
